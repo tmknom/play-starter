@@ -8,10 +8,11 @@ import play.sbt.routes.RoutesKeys.routes
 import sbt.Keys._
 import sbt._
 import wartremover.WartRemover.autoImport._
+import com.timushev.sbt.updates.UpdatesKeys._
 
 // noinspection TypeAnnotation
 object StaticAnalysis {
-  val Settings = WartRemover.Settings ++ Scalastyle.Settings ++ CPD.Settings
+  val Settings = WartRemover.Settings ++ Scalastyle.Settings ++ CPD.Settings ++ Updates.Settings
   val PlaySettings = WartRemover.PlaySettings
 
   object Scalastyle {
@@ -111,6 +112,19 @@ object StaticAnalysis {
         * @see https://github.com/sbt/cpd4sbt/blob/master/src/main/scala/de/johoop/cpd4sbt/Settings.scala#L33
         */
       cpdMinimumTokens := 30
+    )
+  }
+
+  object Updates {
+
+    val Settings = Seq(
+      /**
+        * sbt-updates の依存ライブラリアップデートチェックの対象外を設定
+        *
+        * dependencyUpdatesExclusions は非推奨になったから代わりに
+        * dependencyUpdatesFilter を使えって書いてあるけど、なぜか使えない。。
+        */
+      dependencyUpdatesExclusions := moduleFilter(organization = "net.sourceforge.pmd") // cpd はライブラリが更新されてないので除外
     )
   }
 
