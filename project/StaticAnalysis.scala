@@ -24,7 +24,7 @@ object StaticAnalysis {
         * 標準ではテストコードをチェックする場合 sbt test:scalastyle を叩くことになるが、
         * この設定を入れることで sbt scalastyle を叩いたときも、テストコードをチェックしてくれる。
         */
-      scalastyleSources in Compile <++= sourceDirectories in Test,
+      scalastyleSources in Compile ++= (sourceDirectories in Test).value,
 
       /**
         * テスト時に Scalastyle も一緒に実行するよう設定
