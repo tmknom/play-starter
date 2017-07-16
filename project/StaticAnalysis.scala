@@ -77,6 +77,7 @@ object StaticAnalysis {
         *
         * - 警告の除外設定
         *   - OptionPartial : コントローラでよく出てくるイディオム route(app, FakeRequest(GET, "/any/url")).get が引っかかるため除外
+        *   - NonUnitStatements : DSL的に書かれるテストコードで、ムダに警告が出されるため除外
         *
         * - OptionPartial を抑制する詳細な理由
         *   - 抑制しない場合、コントローラのテストなどで「Option#get is disabled - use Option#fold instead」という警告が出る。
@@ -86,7 +87,7 @@ object StaticAnalysis {
         *   - よって、テストコードでは OptionPartial を抑制することにした。
         *   - 本当はコントローラのテストコードだけ指定とかできればよいが、そこは妥協することとした。
         */
-      wartremoverWarnings in(Test, compile in Test) --= Seq(Wart.OptionPartial)
+      wartremoverWarnings in(Test, compile in Test) --= Seq(Wart.OptionPartial, Wart.NonUnitStatements)
     )
   }
 
