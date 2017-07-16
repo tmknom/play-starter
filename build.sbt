@@ -13,5 +13,6 @@ lazy val root = (project in file("."))
   .settings(StaticAnalysis.PlaySettings)
   .settings(libraryDependencies ++= Dependencies.Application)
   .enablePlugins(PlayScala)
+  .enablePlugins(CopyPasteDetector)
 
 resolvers += Resolver.sonatypeRepo("snapshots")

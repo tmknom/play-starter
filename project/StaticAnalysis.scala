@@ -2,6 +2,7 @@
   * 静的解析ツールの設定
   */
 
+import de.johoop.cpd4sbt.CopyPasteDetector.autoImport._
 import org.scalastyle.sbt.ScalastylePlugin.{scalastyle, scalastyleSources}
 import play.sbt.routes.RoutesKeys.routes
 import sbt.Keys._
@@ -10,7 +11,7 @@ import wartremover.WartRemover.autoImport._
 
 // noinspection TypeAnnotation
 object StaticAnalysis {
-  val Settings = WartRemover.Settings ++ Scalastyle.Settings
+  val Settings = WartRemover.Settings ++ Scalastyle.Settings ++ CPD.Settings
   val PlaySettings = WartRemover.PlaySettings
 
   object Scalastyle {
@@ -88,6 +89,28 @@ object StaticAnalysis {
         *   - 本当はコントローラのテストコードだけ指定とかできればよいが、そこは妥協することとした。
         */
       wartremoverWarnings in(Test, compile in Test) --= Seq(Wart.OptionPartial, Wart.NonUnitStatements)
+    )
+  }
+
+  object CPD {
+
+    val Settings = Seq(
+      /**
+        * CPD によるコピペチェックの設定
+        *
+        * これを入れないと、全部コピペチェックに引っかかる。
+        * target ディレクトリも対象になっちゃってる？
+        */
+      cpdSkipDuplicateFiles := true,
+
+      /**
+        * ここで設定した単語数以上が重複していたら、コピペチェックで引っかける
+        *
+        * デフォルトでは 100 と、やや大きめなので、少し小さめの値をセットする。
+        *
+        * @see https://github.com/sbt/cpd4sbt/blob/master/src/main/scala/de/johoop/cpd4sbt/Settings.scala#L33
+        */
+      cpdMinimumTokens := 30
     )
   }
 
