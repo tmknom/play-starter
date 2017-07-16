@@ -18,3 +18,10 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
   * @see https://github.com/codacy/sbt-codacy-coverage
   */
 addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.8")
+
+/**
+  * 依存ライブラリのアップデート確認
+  *
+  * @see https://github.com/rtimush/sbt-updates
+  */
+addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.1")
