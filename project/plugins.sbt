@@ -20,6 +20,13 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
 addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.8")
 
 /**
+  * 静的解析ツール：Scalastyle
+  *
+  * @see http://www.scalastyle.org/sbt.html
+  */
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
+
+/**
   * 静的解析ツール：WartRemover
   *
   * @see http://www.wartremover.org/
