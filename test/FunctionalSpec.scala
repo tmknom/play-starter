@@ -13,33 +13,24 @@ class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
   "Routes" should {
 
     "send 404 on a bad request" in  {
-      route(app, FakeRequest(GET, "/boum")).map(status(_)) mustBe Some(NOT_FOUND)
+      route(app, FakeRequest(GET, "/boum")).map(status) mustBe Some(NOT_FOUND)
     }
 
     "send 200 on a good request" in  {
-      route(app, FakeRequest(GET, "/")).map(status(_)) mustBe Some(OK)
+      route(app, FakeRequest(GET, "/health_check")).map(status) mustBe Some(OK)
     }
 
   }
 
-  "HomeController" should {
+  "HealthCheckController" should {
 
-    "render the index page" in {
-      val home = route(app, FakeRequest(GET, "/")).get
+    "render the json" in {
+      val expected = "{\"status\":\"ok\"}"
+      val home = route(app, FakeRequest(GET, "/health_check")).get
 
       status(home) mustBe Status.OK
-      contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Your new application is ready.")
-    }
-
-  }
-
-  "CountController" should {
-
-    "return an increasing count" in {
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "0"
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "1"
-      contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "2"
+      contentType(home) mustBe Some("application/json")
+      contentAsString(home) must equal(expected)
     }
 
   }
