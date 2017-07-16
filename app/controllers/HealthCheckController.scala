@@ -13,9 +13,9 @@ import spray.json._
 @Singleton
 final class HealthCheckController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def index = Action {
+  def index: Action[AnyContent] = Action {
     val res = HealthCheck.ok()
-    Ok(res.toJson.prettyPrint).as(JSON)
+    Ok(res.toJson.compactPrint).as(JSON)
   }
 
 }
