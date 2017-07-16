@@ -49,6 +49,11 @@ object BuildSettings {
     javaOptions += "-Dlogback.loglevel.scalikejdbc=DEBUG",
 
     /**
+      * テスト時の設定ファイルの切り替え
+      */
+    javaOptions in Test += "-Dconfig.file=conf/test.conf",
+
+    /**
       * ScalaTest のオプション設定
       *
       * -oD : テストケースごとに実行時間の表示
