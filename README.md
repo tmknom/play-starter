@@ -35,6 +35,12 @@ sbt scalastyle
 sbt dependencyUpdates
 ```
 
+## コードの統計情報
+
+```
+sbt stats
+```
+
 ## データベースの起動
 
 ```
