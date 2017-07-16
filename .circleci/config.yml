@@ -100,5 +100,12 @@ jobs:
           paths:
             - "/opt/app/project/target"
 
-      # run tests!
-      - run: cat /dev/null | sbt test:test
+      # CI 高速化のため master のみカバレッジを取得
+      - run:
+          name: Test
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              cat /dev/null | sbt coverage test:test coverageReport codacyCoverage;
+            else
+              cat /dev/null | sbt test:test;
+            fi
