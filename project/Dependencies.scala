@@ -25,7 +25,7 @@ object Version {
   val DispatchCore = "0.13.1"
 
   // ロギング関連
-  val LogstashLogbackEncoder = "4.9"
+  val LogstashLogbackEncoder = "4.11"
   val Janino = "3.0.7"
 
   // テスト関連
