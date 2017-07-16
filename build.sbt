@@ -2,7 +2,12 @@ name := """play-starter"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+/**
+  * root プロジェクトのビルド定義
+  */
+lazy val root = (project in file("."))
+  .settings(Coverage.Settings)
+  .enablePlugins(PlayScala)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
