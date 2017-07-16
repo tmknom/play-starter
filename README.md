@@ -10,6 +10,13 @@
 sbt test
 ```
 
+## マイグレーション
+
+```
+sbt flywayMigrate
+sbt flywayClean # 全部消したい場合
+```
+
 ## 起動
 
 ```
