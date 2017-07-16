@@ -21,6 +21,10 @@ object Version {
   // JSON関連
   val SprayJson = "1.3.3"
 
+  // ロギング関連
+  val LogstashLogbackEncoder = "4.9"
+  val Janino = "3.0.7"
+
   // テスト関連
   val ScalatestplusPlay = "3.0.0"
 }
@@ -63,6 +67,14 @@ object Library {
   // http://arata.hatenadiary.com/entry/2015/02/11/015916
   val SprayJson = "io.spray" %% "spray-json" % Version.SprayJson
 
+  // logbackでログをjson形式で出力
+  // https://github.com/logstash/logstash-logback-encoder
+  val LogstashLogbackEncoder = "net.logstash.logback" % "logstash-logback-encoder" % Version.LogstashLogbackEncoder
+
+  // logbackで分岐処理を定義するために必要
+  // https://logback.qos.ch/setup.html#janino
+  val Janino =  "org.codehaus.janino" % "janino" % Version.Janino
+
   // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
   val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
@@ -81,7 +93,9 @@ object Dependencies {
     SkinnyOrm,
     ScalikejdbcPlayInitializer,
     ScalikejdbcJsr310,
-    SprayJson
+    SprayJson,
+    LogstashLogbackEncoder,
+    Janino
   )
 
   // テスト関連
