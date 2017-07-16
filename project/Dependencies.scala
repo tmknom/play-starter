@@ -30,7 +30,7 @@ object Version {
 
   // テスト関連
   val MockitoCore = "2.8.47"
-  val ScalatestplusPlay = "3.0.0"
+  val ScalatestplusPlay = "3.1.0"
 }
 
 // noinspection TypeAnnotation
