@@ -16,6 +16,12 @@ sbt test
 sbt run
 ```
 
+## 静的解析：Scalastyle
+
+```
+sbt scalastyle
+```
+
 ## 依存ライブラリのバージョンアップチェック
 
 ```
