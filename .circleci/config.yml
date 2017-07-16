@@ -37,25 +37,25 @@ jobs:
       - restore_cache:
           name: Restoring cache - sbt
           keys:
-            - sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
             - sbt-{{ .Environment.CACHE_KEY }}-
 
       - restore_cache:
           name: Restoring cache - ivy2
           keys:
-            - ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
             - ivy2-{{ .Environment.CACHE_KEY }}-
 
       - restore_cache:
           name: Restoring cache - target
           keys:
-            - target-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - target-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
             - target-{{ .Environment.CACHE_KEY }}-
 
       - restore_cache:
           name: Restoring cache - project/target
           keys:
-            - project-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - project-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
             - project-{{ .Environment.CACHE_KEY }}-
 
       - run:
@@ -78,25 +78,25 @@ jobs:
       # テスト高速化のためキャッシュ
       - save_cache:
           name: Saving cache - sbt
-          key: sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          key: sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
           paths:
             - "~/.sbt"
 
       - save_cache:
           name: Saving cache - ivy2
-          key: ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          key: ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
           paths:
             - "~/.ivy2"
 
       - save_cache:
           name: Saving cache - target
-          key: target-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          key: target-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
           paths:
             - "/opt/app/target"
 
       - save_cache:
           name: Saving cache - project/target
-          key: project-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          key: project-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
           paths:
             - "/opt/app/project/target"
 
