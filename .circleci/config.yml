@@ -1,0 +1,104 @@
+# Scala CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/sample-config/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # https://github.com/tmknom/docker-play-framework
+      - image: tmknom/play-development
+        environment:
+          DB_URL: "jdbc:mysql://127.0.0.1/db_test?characterEncoding=UTF8&connectionCollation=utf8mb4_bin&useSSL=false"
+          DB_USER: "root"
+          DB_PASSWORD: ""
+          # タイムゾーンは本番環境に合わせる
+          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          # MySQLの起動チェック用
+          HEALTH_CHECK_RETRY_LIMIT: 10
+          HEALTH_CHECK_RETRY_WAIT: 3
+      - image: mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+
+      # CircleCI の Environment Variables に CACHE_KEY という名前で、適当な値を保存しておく。
+      # キャッシュをリフレッシュしたい場合は、設定した CACHE_KEY の値を CircleCI 上で変更する。
+      # http://engineer.crowdworks.jp/entry/2017/04/04/202719
+      - restore_cache:
+          name: Restoring cache - sbt
+          keys:
+            - sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - sbt-{{ .Environment.CACHE_KEY }}-
+
+      - restore_cache:
+          name: Restoring cache - ivy2
+          keys:
+            - ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - ivy2-{{ .Environment.CACHE_KEY }}-
+
+      - restore_cache:
+          name: Restoring cache - target
+          keys:
+            - target-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - target-{{ .Environment.CACHE_KEY }}-
+
+      - restore_cache:
+          name: Restoring cache - project/target
+          keys:
+            - project-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+            - project-{{ .Environment.CACHE_KEY }}-
+
+      - run:
+          # MySQLの起動チェック
+          # テスト時にMySQLコンテナの起動が間に合わないことがあるため、接続できるようになるまで待つ
+          # http://engineer.crowdworks.jp/entry/2017/04/04/202719
+          name: Checking mysql connection
+          command: |
+            for i in $(seq $HEALTH_CHECK_RETRY_LIMIT)
+            do
+              mysql -u root -h 127.0.0.1 -e 'show databases' || (sleep $HEALTH_CHECK_RETRY_WAIT; false) && break
+            done
+      - run:
+          name: Create test database
+          command: mysql -u root -h 127.0.0.1 -e 'create database db_test character set utf8mb4;'
+
+      # コンパイルを一旦走らせる
+      - run: cat /dev/null | sbt test:compile
+
+      # テスト高速化のためキャッシュ
+      - save_cache:
+          name: Saving cache - sbt
+          key: sbt-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          paths:
+            - "~/.sbt"
+
+      - save_cache:
+          name: Saving cache - ivy2
+          key: ivy2-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          paths:
+            - "~/.ivy2"
+
+      - save_cache:
+          name: Saving cache - target
+          key: target-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          paths:
+            - "/opt/app/target"
+
+      - save_cache:
+          name: Saving cache - project/target
+          key: project-{{ .Environment.CACHE_KEY }}-{{ checksum "build.sbt" }}
+          paths:
+            - "/opt/app/project/target"
+
+      # run tests!
+      - run: cat /dev/null | sbt test:test
