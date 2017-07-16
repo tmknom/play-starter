@@ -39,6 +39,3 @@ object Coverage {
     coverageMinimum := 75
   )
 }
-
-
-
