@@ -16,6 +16,12 @@ sbt test
 sbt run
 ```
 
+## 依存ライブラリのバージョンアップチェック
+
+```
+sbt dependencyUpdates
+```
+
 ## データベースの起動
 
 ```
