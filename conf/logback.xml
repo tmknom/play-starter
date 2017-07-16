@@ -1,5 +1,8 @@
 <!-- https://www.playframework.com/documentation/latest/SettingsLogger -->
 <configuration>
+  <!-- 下記リンクを参考にログのスキーマ名を定義：ログフォーマットの種別を文字列で定義する -->
+  <!-- https://www.slideshare.net/cyberagent/cwt2016/19 -->
+  <property name="SCHEMA" value="v1.0" />
 
   <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
 
@@ -11,8 +14,24 @@
   </appender>
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%coloredLevel %logger{15} - %message%n%xException{10}</pattern>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <!-- HOSTNAMEはデフォルトで使えるらしいので、ついでに出力している -->
+      <customFields>{"schema":"${SCHEMA}","host_name":"${HOSTNAME:-}"}</customFields>
+
+      <!-- JSON のキー名を変更 -->
+      <fieldNames>
+        <!-- timestamp はデフォルトだと @timestamp になってしまうため明示的に指定 -->
+        <timestamp>timestamp</timestamp>
+        <!-- ログレベルの値(数値)とバージョンは不要なので出力しない -->
+        <version>[ignore]</version>
+        <levelValue>[ignore]</levelValue>
+      </fieldNames>
+
+      <!-- タイムゾーンの指定：環境依存にしたくないので、明示的に指定する -->
+      <timeZone>JST</timeZone>
+
+      <!-- false にすると application.home が出力されなくなる -->
+      <includeContext>false</includeContext>
     </encoder>
   </appender>
 
@@ -25,10 +44,10 @@
   </appender>
 
   <logger name="play" level="INFO" />
-  <logger name="application" level="DEBUG" />
+  <logger name="application" level="${logback.loglevel.application:-INFO}" />
 
   <!-- SQLの実行ログ出力設定 -->
-  <logger name="scalikejdbc" level="DEBUG"/>
+  <logger name="scalikejdbc" level="${logback.loglevel.scalikejdbc:-INFO}"/>
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
   <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
@@ -37,8 +56,13 @@
   <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
 
   <root level="WARN">
-    <appender-ref ref="ASYNCFILE" />
     <appender-ref ref="ASYNCSTDOUT" />
+    <!-- 本番環境ではログをファイル出力したくないので、JVMのシステムプロパティがセットされているかチェックしている -->
+    <if condition='isDefined("logback.appender.file")'>
+      <then>
+        <appender-ref ref="ASYNCFILE" />
+      </then>
+    </if>
   </root>
 
 </configuration>
