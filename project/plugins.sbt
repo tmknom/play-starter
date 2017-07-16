@@ -2,6 +2,18 @@
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.1")
 
 /**
+  * マイグレーションツール
+  *
+  * flyway-play(https://github.com/flyway/flyway-play)というのもあるが
+  * evolution同様に単発コマンドとして起動できないので
+  * 単発コマンドとして起動できるflyway-sbtを使う。
+  *
+  * @see https://flywaydb.org/documentation/sbt/
+  */
+addSbtPlugin("org.flywaydb" % "flyway-sbt" % "4.2.0")
+resolvers += "Flyway" at "https://flywaydb.org/repo"
+
+/**
   * カバレッジ
   *
   * @see https://github.com/scoverage/sbt-scoverage
