@@ -46,6 +46,16 @@ object BuildSettings {
       * ローカル環境では DEBUG レベルのほうが便利なので、明示的に指定している。
       * 本番環境などでは conf/logback.xml で記述されたデフォルト値である INFO レベルで出力する。
       */
-    javaOptions += "-Dlogback.loglevel.scalikejdbc=DEBUG"
+    javaOptions += "-Dlogback.loglevel.scalikejdbc=DEBUG",
+
+    /**
+      * ScalaTest のオプション設定
+      *
+      * -oD : テストケースごとに実行時間の表示
+      * -eI : 失敗したテストを最後にまとめて表示
+      *
+      * @see http://www.scalatest.org/user_guide/using_scalatest_with_sbt
+      */
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD", "-eI")
   )
 }
