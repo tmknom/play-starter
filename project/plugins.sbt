@@ -20,6 +20,13 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.5.0")
 addSbtPlugin("com.codacy" % "sbt-codacy-coverage" % "1.3.8")
 
 /**
+  * 静的解析ツール：WartRemover
+  *
+  * @see http://www.wartremover.org/
+  */
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.1.1")
+
+/**
   * 依存ライブラリのアップデート確認
   *
   * @see https://github.com/rtimush/sbt-updates
