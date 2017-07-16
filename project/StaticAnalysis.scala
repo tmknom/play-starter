@@ -2,6 +2,7 @@
   * 静的解析ツールの設定
   */
 
+import org.scalastyle.sbt.ScalastylePlugin.{scalastyle, scalastyleSources}
 import play.sbt.routes.RoutesKeys.routes
 import sbt.Keys._
 import sbt._
@@ -9,8 +10,39 @@ import wartremover.WartRemover.autoImport._
 
 // noinspection TypeAnnotation
 object StaticAnalysis {
-  val Settings = WartRemover.Settings
+  val Settings = WartRemover.Settings ++ Scalastyle.Settings
   val PlaySettings = WartRemover.PlaySettings
+
+  object Scalastyle {
+
+    val Settings = Seq(
+      /**
+        * Scalastyleでテストコード側もデフォルトでチェックするよう設定
+        *
+        * テストコードもプロダクトコード同様の品質にすべきである。
+        *
+        * 標準ではテストコードをチェックする場合 sbt test:scalastyle を叩くことになるが、
+        * この設定を入れることで sbt scalastyle を叩いたときも、テストコードをチェックしてくれる。
+        */
+      scalastyleSources in Compile <++= sourceDirectories in Test,
+
+      /**
+        * テスト時に Scalastyle も一緒に実行するよう設定
+        *
+        * Scalastyle はテストコードも含めてチェックする。
+        * テスト時もコンパイル時と同様の設定でチェックしたいので Compile を指定している。
+        * こうすることで compile 用の設定をそのまま流用することが可能。
+        *
+        * @see https://github.com/crowdworksjp/banking/pull/16
+        * @see http://www.scalastyle.org/sbt.html
+        * @see http://qiita.com/mtn81/items/ce482ed16a19f770cc68
+        */
+      (test in Test) := {
+        (scalastyle in Compile).toTask("").value
+        (test in Test).value
+      }
+    )
+  }
 
   object WartRemover {
 
