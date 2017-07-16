@@ -1,7 +1,11 @@
 package controllers
 
 import javax.inject._
+
+import domains.HealthCheck
+import domains.HealthCheckProtocol._
 import play.api.mvc._
+import spray.json._
 
 /**
   * ヘルスチェックAPI
@@ -10,7 +14,8 @@ import play.api.mvc._
 final class HealthCheckController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index = Action {
-    Ok("ok")
+    val res = HealthCheck.ok()
+    Ok(res.toJson.prettyPrint).as(JSON)
   }
 
 }
