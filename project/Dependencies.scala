@@ -18,6 +18,9 @@ object Version {
   val ScalikejdbcPlayInitializer = "2.6.0"
   val ScalikejdbcJsr310 = "2.5.2"
 
+  // JSON関連
+  val SprayJson = "1.3.3"
+
   // テスト関連
   val ScalatestplusPlay = "3.0.0"
 }
@@ -56,6 +59,10 @@ object Library {
   // https://github.com/scalikejdbc/scalikejdbc-cookbook/blob/master/ja/06_samples.md#joda-time-ではなく-java-se-8-の-date-time-api-を使う
   val ScalikejdbcJsr310 = "org.scalikejdbc" %% "scalikejdbc-jsr310" % Version.ScalikejdbcJsr310
 
+  // Scala オブジェクトと JSON の相互変換ライブラリ
+  // http://arata.hatenadiary.com/entry/2015/02/11/015916
+  val SprayJson = "io.spray" %% "spray-json" % Version.SprayJson
+
   // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
   val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
@@ -73,7 +80,8 @@ object Dependencies {
     MysqlConnectorJava,
     SkinnyOrm,
     ScalikejdbcPlayInitializer,
-    ScalikejdbcJsr310
+    ScalikejdbcJsr310,
+    SprayJson
   )
 
   // テスト関連
