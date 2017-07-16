@@ -29,6 +29,7 @@ object Version {
   val Janino = "3.0.7"
 
   // テスト関連
+  val MockitoCore = "2.8.47"
   val ScalatestplusPlay = "3.0.0"
 }
 
@@ -83,6 +84,10 @@ object Library {
   // https://logback.qos.ch/setup.html#janino
   val Janino =  "org.codehaus.janino" % "janino" % Version.Janino
 
+  // モック用ライブラリ
+  // https://www.playframework.com/documentation/2.5.x/ScalaTestingWithScalaTest#Mockito
+  val MockitoCore = "org.mockito" % "mockito-core" % Version.MockitoCore % Test
+
   // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
   val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
@@ -109,6 +114,7 @@ object Dependencies {
 
   // テスト関連
   val Test = Seq(
+    MockitoCore,
     ScalatestplusPlay
   )
 
