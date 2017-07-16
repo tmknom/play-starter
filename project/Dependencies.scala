@@ -21,6 +21,9 @@ object Version {
   // JSON関連
   val SprayJson = "1.3.3"
 
+  // 通信関連
+  val DispatchCore = "0.13.1"
+
   // ロギング関連
   val LogstashLogbackEncoder = "4.9"
   val Janino = "3.0.7"
@@ -67,6 +70,11 @@ object Library {
   // http://arata.hatenadiary.com/entry/2015/02/11/015916
   val SprayJson = "io.spray" %% "spray-json" % Version.SprayJson
 
+  // HTTP通信用ライブラリ
+  // wsよりコッチを使うほうが推奨されているっぽい
+  // http://qiita.com/bigwheel/items/44cb874ced4be204c09c
+  val DispatchCore = "net.databinder.dispatch" %% "dispatch-core" % Version.DispatchCore
+
   // logbackでログをjson形式で出力
   // https://github.com/logstash/logstash-logback-encoder
   val LogstashLogbackEncoder = "net.logstash.logback" % "logstash-logback-encoder" % Version.LogstashLogbackEncoder
@@ -94,6 +102,7 @@ object Dependencies {
     ScalikejdbcPlayInitializer,
     ScalikejdbcJsr310,
     SprayJson,
+    DispatchCore,
     LogstashLogbackEncoder,
     Janino
   )
