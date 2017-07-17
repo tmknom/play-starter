@@ -35,7 +35,6 @@ object StaticAnalysis {
         * テスト時もコンパイル時と同様の設定でチェックしたいので Compile を指定している。
         * こうすることで compile 用の設定をそのまま流用することが可能。
         *
-        * @see https://github.com/crowdworksjp/banking/pull/16
         * @see http://www.scalastyle.org/sbt.html
         * @see http://qiita.com/mtn81/items/ce482ed16a19f770cc68
         */

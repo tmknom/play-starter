@@ -53,3 +53,10 @@ lazy val filter = (project in file("library/filter"))
   .settings(StaticAnalysis.Settings)
   .aggregate(core).dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
+
+lazy val errorHandler = (project in file("library/error_handler"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .aggregate(core).dependsOn(core)
+  .aggregate(validation).dependsOn(validation) // TODO この依存関係はおかしいので解消すること！
+  .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
