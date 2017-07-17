@@ -15,6 +15,12 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
   .enablePlugins(CopyPasteDetector)
   .aggregate(core).dependsOn(core)
+  .aggregate(datetime).dependsOn(datetime)
+  .aggregate(spray).dependsOn(spray)
+  .aggregate(validation).dependsOn(validation)
+  .aggregate(migration).dependsOn(migration)
+  .aggregate(filter).dependsOn(filter)
+  .aggregate(errorHandler).dependsOn(errorHandler)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
