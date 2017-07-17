@@ -27,3 +27,8 @@ lazy val core = (project in file("library/core"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
+
+lazy val datetime = (project in file("library/datetime"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .settings(libraryDependencies ++= Seq(ScalatestplusPlay))
