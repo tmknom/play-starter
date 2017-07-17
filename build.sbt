@@ -29,6 +29,16 @@ resolvers += Resolver.sonatypeRepo("snapshots")
   */
 import Library._
 
+lazy val library = (project in file("library"))
+  .settings(BuildSettings.Settings)
+  .aggregate(core).dependsOn(core)
+  .aggregate(datetime).dependsOn(datetime)
+  .aggregate(spray).dependsOn(spray)
+  .aggregate(validation).dependsOn(validation)
+  .aggregate(migration).dependsOn(migration)
+  .aggregate(filter).dependsOn(filter)
+  .aggregate(errorhandler).dependsOn(errorhandler)
+
 lazy val core = (project in file("library/core"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
