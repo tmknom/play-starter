@@ -31,6 +31,9 @@ object Version {
   // テスト関連
   val MockitoCore = "2.8.47"
   val ScalatestplusPlay = "3.1.0"
+
+  // 共通ライブラリ関連
+  val PlayFramework = "2.6.1" // plugins.sbt の定義と合わせること
 }
 
 // noinspection TypeAnnotation
@@ -91,6 +94,11 @@ object Library {
   // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
   val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
+
+  // Play 本体（共通ライブラリ用に定義）
+  // Play アプリケーション単体であれば project/plugins.sbt で読み込むので、依存関係の定義は不要
+  // なお、変数名が Play ではなく PlayFramework なのは Play という名前が定義済みのため、被るのを避けるため
+  val PlayFramework = "com.typesafe.play" %% "play" % Version.PlayFramework
 }
 
 // noinspection TypeAnnotation
