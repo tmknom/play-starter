@@ -20,7 +20,7 @@ lazy val root = (project in file("."))
   .aggregate(validation).dependsOn(validation)
   .aggregate(migration).dependsOn(migration)
   .aggregate(filter).dependsOn(filter)
-  .aggregate(errorHandler).dependsOn(errorHandler)
+  .aggregate(errorhandler).dependsOn(errorhandler)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
@@ -61,7 +61,7 @@ lazy val filter = (project in file("library/filter"))
   .aggregate(core).dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
-lazy val errorHandler = (project in file("library/error_handler"))
+lazy val errorhandler = (project in file("library/errorhandler"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .aggregate(core).dependsOn(core)

@@ -1,4 +1,4 @@
-package library.error_handler.internal
+package library.errorhandler.internal
 
 import library.exception.validation.ErrorDetail
 import play.api.libs.json.{JsObject, Json}
@@ -6,7 +6,7 @@ import play.api.libs.json.{JsObject, Json}
 /**
   * エラーレスポンス用のJSONを生成するクラス
   */
-private[error_handler] object ErrorRenderer {
+private[errorhandler] object ErrorRenderer {
   /**
     * クライアントエラーでは例外がスローされるわけではないので、固定値を返す
     */

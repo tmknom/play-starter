@@ -1,4 +1,4 @@
-package library.error_handler.internal
+package library.errorhandler.internal
 
 import play.api.Logger
 import play.api.mvc.RequestHeader
@@ -8,7 +8,7 @@ import play.api.mvc.RequestHeader
   *
   * Rollbarへの通知処理
   */
-private[error_handler] object ErrorNotification {
+private[errorhandler] object ErrorNotification {
 
   /**
     * エラーを通知する

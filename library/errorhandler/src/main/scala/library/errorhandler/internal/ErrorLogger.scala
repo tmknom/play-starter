@@ -1,4 +1,4 @@
-package library.error_handler.internal
+package library.errorhandler.internal
 
 import library.request.{CorrelationId, RequestId}
 import net.logstash.logback.marker.Markers
@@ -11,7 +11,7 @@ import scala.collection.JavaConverters._
 /**
   * エラー用のロガー
   */
-private[error_handler] object ErrorLogger {
+private[errorhandler] object ErrorLogger {
 
   /**
     * エラーログの出力

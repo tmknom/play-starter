@@ -1,8 +1,8 @@
-package library.error_handler
+package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.error_handler.internal.{ErrorLogger, ErrorNotification, ErrorRenderer}
+import library.errorhandler.internal.{ErrorLogger, ErrorNotification, ErrorRenderer}
 import library.exception.validation.ValidationException
 import library.request.RequestId
 import play.api._
