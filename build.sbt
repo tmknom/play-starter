@@ -42,3 +42,8 @@ lazy val validation = (project in file("library/validation"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
+
+lazy val migration = (project in file("library/migration"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .settings(libraryDependencies ++= Seq(PlayFramework, PlayJdbcApi, FlywayCore, ScalatestplusPlay))
