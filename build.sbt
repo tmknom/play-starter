@@ -14,5 +14,16 @@ lazy val root = (project in file("."))
   .settings(libraryDependencies ++= Dependencies.Application)
   .enablePlugins(PlayScala)
   .enablePlugins(CopyPasteDetector)
+  .aggregate(core).dependsOn(core)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
+
+/**
+  * 共通ライブラリのビルド定義
+  */
+import Library._
+
+lazy val core = (project in file("library/core"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
