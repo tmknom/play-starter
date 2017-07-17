@@ -34,6 +34,7 @@ object Version {
 
   // 共通ライブラリ関連
   val PlayFramework = "2.6.1" // plugins.sbt の定義と合わせること
+  val FlywayCore = "4.2.0"
 }
 
 // noinspection TypeAnnotation
@@ -99,6 +100,14 @@ object Library {
   // Play アプリケーション単体であれば project/plugins.sbt で読み込むので、依存関係の定義は不要
   // なお、変数名が Play ではなく PlayFramework なのは Play という名前が定義済みのため、被るのを避けるため
   val PlayFramework = "com.typesafe.play" %% "play" % Version.PlayFramework
+
+  // Play から jdbc を使うためのラッパーインタフェース（共通ライブラリ用に定義）
+  // flyway 単体で使う場合は project/plugins.sbt で読み込むので、依存関係の定義は不要
+  val PlayJdbcApi = "com.typesafe.play" %% "play-jdbc-api" % Version.PlayFramework
+
+  // マイグレーションツールf（共通ライブラリ用に定義）
+  // Play アプリケーション単体であれば project/plugins.sbt で読み込むので、依存関係の定義は不要
+  val FlywayCore = "org.flywaydb" % "flyway-core" % Version.FlywayCore
 }
 
 // noinspection TypeAnnotation
