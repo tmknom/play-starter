@@ -32,3 +32,8 @@ lazy val datetime = (project in file("library/datetime"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .settings(libraryDependencies ++= Seq(ScalatestplusPlay))
+
+lazy val spray = (project in file("library/spray"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .settings(libraryDependencies ++= Seq(SprayJson, ScalatestplusPlay))
