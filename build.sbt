@@ -14,13 +14,7 @@ lazy val root = (project in file("."))
   .settings(libraryDependencies ++= Dependencies.Application)
   .enablePlugins(PlayScala)
   .enablePlugins(CopyPasteDetector)
-  .aggregate(core).dependsOn(core)
-  .aggregate(datetime).dependsOn(datetime)
-  .aggregate(spray).dependsOn(spray)
-  .aggregate(validation).dependsOn(validation)
-  .aggregate(migration).dependsOn(migration)
-  .aggregate(filter).dependsOn(filter)
-  .aggregate(errorhandler).dependsOn(errorhandler)
+  .aggregate(library).dependsOn(library)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
@@ -28,6 +22,16 @@ resolvers += Resolver.sonatypeRepo("snapshots")
   * 共通ライブラリのビルド定義
   */
 import Library._
+
+lazy val library = (project in file("library"))
+  .settings(BuildSettings.Settings)
+  .aggregate(core).dependsOn(core)
+  .aggregate(datetime).dependsOn(datetime)
+  .aggregate(spray).dependsOn(spray)
+  .aggregate(validation).dependsOn(validation)
+  .aggregate(migration).dependsOn(migration)
+  .aggregate(filter).dependsOn(filter)
+  .aggregate(errorhandler).dependsOn(errorhandler)
 
 lazy val core = (project in file("library/core"))
   .settings(BuildSettings.Settings)
