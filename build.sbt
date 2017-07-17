@@ -47,6 +47,7 @@ lazy val spray = (project in file("library/spray"))
 lazy val validation = (project in file("library/validation"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
+  .aggregate(core).dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val migration = (project in file("library/migration"))
@@ -64,5 +65,4 @@ lazy val errorHandler = (project in file("library/error_handler"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .aggregate(core).dependsOn(core)
-  .aggregate(validation).dependsOn(validation) // TODO この依存関係はおかしいので解消すること！
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
