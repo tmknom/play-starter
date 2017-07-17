@@ -37,3 +37,8 @@ lazy val spray = (project in file("library/spray"))
   .settings(BuildSettings.Settings)
   .settings(StaticAnalysis.Settings)
   .settings(libraryDependencies ++= Seq(SprayJson, ScalatestplusPlay))
+
+lazy val validation = (project in file("library/validation"))
+  .settings(BuildSettings.Settings)
+  .settings(StaticAnalysis.Settings)
+  .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
