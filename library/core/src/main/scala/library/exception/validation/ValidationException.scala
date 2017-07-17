@@ -1,4 +1,4 @@
-package library.validation
+package library.exception.validation
 
 /**
   * バリデーション例外

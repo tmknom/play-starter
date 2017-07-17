@@ -1,5 +1,6 @@
 package library.validation
 
+import library.exception.validation.{ErrorDetail, ValidationException}
 import play.api.data.{Form, FormError}
 import play.api.mvc.Request
 

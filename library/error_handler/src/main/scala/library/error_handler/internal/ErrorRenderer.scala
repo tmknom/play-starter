@@ -1,6 +1,6 @@
 package library.error_handler.internal
 
-import library.validation.ErrorDetail
+import library.exception.validation.ErrorDetail
 import play.api.libs.json.{JsObject, Json}
 
 /**
