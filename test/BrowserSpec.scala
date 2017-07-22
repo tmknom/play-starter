@@ -14,7 +14,7 @@ class BrowserSpec extends PlaySpec
 
     "work from within a browser" in {
 
-      go to ("http://localhost:" + port + "/health_check")
+      go to ("http://localhost:" + port.toString + "/health_check")
 
       val expected = "{\"status\":\"ok\"}"
       pageSource must equal(expected)
