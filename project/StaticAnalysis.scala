@@ -2,13 +2,13 @@
   * 静的解析ツールの設定
   */
 
+import com.timushev.sbt.updates.UpdatesKeys._
 import de.johoop.cpd4sbt.CopyPasteDetector.autoImport._
 import org.scalastyle.sbt.ScalastylePlugin.{scalastyle, scalastyleSources}
 import play.sbt.routes.RoutesKeys.routes
 import sbt.Keys._
 import sbt._
 import wartremover.WartRemover.autoImport._
-import com.timushev.sbt.updates.UpdatesKeys._
 
 // noinspection TypeAnnotation
 object StaticAnalysis {
