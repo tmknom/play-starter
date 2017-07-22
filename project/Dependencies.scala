@@ -30,7 +30,7 @@ object Version {
 
   // テスト関連
   val MockitoCore = "2.8.47"
-  val ScalatestplusPlay = "3.1.0"
+  val ScalatestplusPlay = "3.1.1"
 
   // 共通ライブラリ関連
   val PlayFramework = "2.6.2" // plugins.sbt の定義と合わせること
