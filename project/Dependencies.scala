@@ -33,7 +33,7 @@ object Version {
   val ScalatestplusPlay = "3.1.0"
 
   // 共通ライブラリ関連
-  val PlayFramework = "2.6.1" // plugins.sbt の定義と合わせること
+  val PlayFramework = "2.6.2" // plugins.sbt の定義と合わせること
   val FlywayCore = "4.2.0"
 }
 
@@ -86,7 +86,7 @@ object Library {
 
   // logbackで分岐処理を定義するために必要
   // https://logback.qos.ch/setup.html#janino
-  val Janino =  "org.codehaus.janino" % "janino" % Version.Janino
+  val Janino = "org.codehaus.janino" % "janino" % Version.Janino
 
   // モック用ライブラリ
   // https://www.playframework.com/documentation/2.5.x/ScalaTestingWithScalaTest#Mockito
