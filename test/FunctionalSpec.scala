@@ -5,18 +5,18 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 /**
- * Functional tests start a Play application internally, available
- * as `app`.
- */
+  * Functional tests start a Play application internally, available
+  * as `app`.
+  */
 class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
 
   "Routes" should {
 
-    "send 404 on a bad request" in  {
+    "send 404 on a bad request" in {
       route(app, FakeRequest(GET, "/boum")).map(status) mustBe Some(NOT_FOUND)
     }
 
-    "send 200 on a good request" in  {
+    "send 200 on a good request" in {
       route(app, FakeRequest(GET, "/health_check")).map(status) mustBe Some(OK)
     }
 
