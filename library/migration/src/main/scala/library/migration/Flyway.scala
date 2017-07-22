@@ -41,19 +41,11 @@ class Flyway(app: Application) {
   flyway.setOutOfOrder(outOfOrder)
 
   private def locations(): Seq[String] = {
-    conf.getStringList("flyway.locations") match {
-      case Some(locations) => locations.asScala // java.util.List[String] => Seq[String]
-      // 設定が読めないのは想定外のなので例外で落とす
-      case None => throw new FlywayConfigurationException("flyway.locationsが読み込めませんでした。application.confを確認して下さい。")
-    }
+    conf.underlying.getStringList("flyway.locations").asScala
   }
 
   private def outOfOrder(): Boolean = {
-    conf.getBoolean("flyway.outOfOrder") match {
-      case Some(outOfOrder) => outOfOrder
-      // 設定が読めないのは想定外のなので例外で落とす
-      case None => throw new FlywayConfigurationException("flyway.outOfOrderが読み込めませんでした。application.confを確認して下さい。")
-    }
+    conf.get[Boolean]("flyway.outOfOrder")
   }
 
   // マイグレーション状態の表示
