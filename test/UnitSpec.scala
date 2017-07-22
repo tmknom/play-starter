@@ -4,8 +4,8 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
 /**
- * Unit tests can run without a full Play application.
- */
+  * Unit tests can run without a full Play application.
+  */
 class UnitSpec extends PlaySpec {
 
   "HealthCheckController" should {

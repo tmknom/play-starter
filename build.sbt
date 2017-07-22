@@ -21,6 +21,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 /**
   * 共通ライブラリのビルド定義
   */
+
 import Library._
 
 lazy val library = (project in file("library"))
