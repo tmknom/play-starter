@@ -13,7 +13,7 @@ class SnakeCaseJsonNamingSpec extends PlaySpec {
   }
 }
 
-private case class TestUser(userName: String, age: Int)
+private final case class TestUser(userName: String, age: Int)
 
 private object TestUserJsonProtocol extends SnakeCaseJsonNaming {
   implicit val format: RootJsonFormat[TestUser] = jsonFormat2(TestUser)
