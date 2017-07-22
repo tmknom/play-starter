@@ -2,9 +2,9 @@
 <configuration>
   <!-- 下記リンクを参考にログのスキーマ名を定義：ログフォーマットの種別を文字列で定義する -->
   <!-- https://www.slideshare.net/cyberagent/cwt2016/19 -->
-  <property name="SCHEMA" value="v1.0" />
+  <property name="SCHEMA" value="v1.0"/>
 
-  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
+  <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel"/>
 
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
     <file>${application.home:-.}/logs/application.log</file>
@@ -36,31 +36,31 @@
   </appender>
 
   <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
-    <appender-ref ref="FILE" />
+    <appender-ref ref="FILE"/>
   </appender>
 
   <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
-    <appender-ref ref="STDOUT" />
+    <appender-ref ref="STDOUT"/>
   </appender>
 
-  <logger name="play" level="INFO" />
-  <logger name="application" level="${logback.loglevel.application:-INFO}" />
+  <logger name="play" level="INFO"/>
+  <logger name="application" level="${logback.loglevel.application:-INFO}"/>
 
   <!-- SQLの実行ログ出力設定 -->
   <logger name="scalikejdbc" level="${logback.loglevel.scalikejdbc:-INFO}"/>
 
   <!-- Off these ones as they are annoying, and anyway we manage configuration ourselves -->
-  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF" />
-  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF" />
-  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF" />
-  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF" />
+  <logger name="com.avaje.ebean.config.PropertyMapLoader" level="OFF"/>
+  <logger name="com.avaje.ebeaninternal.server.core.XmlConfigLoader" level="OFF"/>
+  <logger name="com.avaje.ebeaninternal.server.lib.BackgroundThread" level="OFF"/>
+  <logger name="com.gargoylesoftware.htmlunit.javascript" level="OFF"/>
 
   <root level="WARN">
-    <appender-ref ref="ASYNCSTDOUT" />
+    <appender-ref ref="ASYNCSTDOUT"/>
     <!-- 本番環境ではログをファイル出力したくないので、JVMのシステムプロパティがセットされているかチェックしている -->
     <if condition='isDefined("logback.appender.file")'>
       <then>
-        <appender-ref ref="ASYNCFILE" />
+        <appender-ref ref="ASYNCFILE"/>
       </then>
     </if>
   </root>
