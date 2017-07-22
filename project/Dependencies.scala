@@ -13,7 +13,7 @@ import sbt._
 
 object Version {
   // DB関連
-  val MysqlConnectorJava = "5.1.42"
+  val MysqlConnectorJava = "5.1.43"
   val SkinnyOrm = "2.3.7"
   val ScalikejdbcPlayInitializer = "2.6.0"
   val ScalikejdbcJsr310 = "2.5.2"
@@ -30,10 +30,10 @@ object Version {
 
   // テスト関連
   val MockitoCore = "2.8.47"
-  val ScalatestplusPlay = "3.1.0"
+  val ScalatestplusPlay = "3.1.1"
 
   // 共通ライブラリ関連
-  val PlayFramework = "2.6.1" // plugins.sbt の定義と合わせること
+  val PlayFramework = "2.6.2" // plugins.sbt の定義と合わせること
   val FlywayCore = "4.2.0"
 }
 
@@ -86,7 +86,7 @@ object Library {
 
   // logbackで分岐処理を定義するために必要
   // https://logback.qos.ch/setup.html#janino
-  val Janino =  "org.codehaus.janino" % "janino" % Version.Janino
+  val Janino = "org.codehaus.janino" % "janino" % Version.Janino
 
   // モック用ライブラリ
   // https://www.playframework.com/documentation/2.5.x/ScalaTestingWithScalaTest#Mockito
