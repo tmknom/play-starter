@@ -8,11 +8,11 @@ import play.api.libs.json.{JsObject, Json}
   *
   * @todo バリデーションエラー時に、複数のerrorsを返せるように修正する
   */
-private[errorhandler] final case class ValidationErrorRenderer(
-                                                                private val errors: Seq[ErrorDetail],
-                                                                private val statusCode: Int,
-                                                                private val requestId: String
-                                                              ) {
+private[internal] final case class ValidationErrorRenderer(
+                                                            private val errors: Seq[ErrorDetail],
+                                                            private val statusCode: Int,
+                                                            private val requestId: String
+                                                          ) {
 
   def render: JsObject = {
     Json.obj(

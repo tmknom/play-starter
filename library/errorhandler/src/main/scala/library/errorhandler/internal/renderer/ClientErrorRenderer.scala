@@ -5,11 +5,11 @@ import play.api.libs.json.{JsObject, Json}
 /**
   * クライアントエラー用のJSONを生成するクラス
   */
-private[errorhandler] final case class ClientErrorRenderer(
-                                                            private val message: String,
-                                                            private val statusCode: Int,
-                                                            private val requestId: String
-                                                          ) {
+private[internal] final case class ClientErrorRenderer(
+                                                        private val message: String,
+                                                        private val statusCode: Int,
+                                                        private val requestId: String
+                                                      ) {
   /**
     * クライアントエラーでは例外がスローされるわけではないので、固定値を返す
     */

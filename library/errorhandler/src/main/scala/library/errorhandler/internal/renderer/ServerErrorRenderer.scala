@@ -5,11 +5,11 @@ import play.api.libs.json.{JsObject, Json}
 /**
   * サーバエラー用のJSONを生成するクラス
   */
-private[errorhandler] final case class ServerErrorRenderer(
-                                                            private val throwable: Throwable,
-                                                            private val statusCode: Int,
-                                                            private val requestId: String
-                                                          ) {
+private[internal] final case class ServerErrorRenderer(
+                                                        private val throwable: Throwable,
+                                                        private val statusCode: Int,
+                                                        private val requestId: String
+                                                      ) {
 
   def render: JsObject = {
     Json.obj(
