@@ -11,7 +11,7 @@ object BuildSettings {
     /**
       * Scalaのバージョン
       */
-    scalaVersion := "2.12.2",
+    scalaVersion := "2.12.3",
 
     /**
       * システムのタイムゾーンを指定
