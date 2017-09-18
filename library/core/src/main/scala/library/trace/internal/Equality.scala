@@ -1,6 +1,6 @@
-package library.request.internal
+package library.trace.internal
 
-private[request] object Equality {
+private[trace] object Equality {
   /**
     * 型安全な equals の実装
     *

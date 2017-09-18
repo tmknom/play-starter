@@ -4,7 +4,7 @@ import javax.inject.{Inject, Provider, Singleton}
 
 import library.errorhandler.internal.{ErrorLogger, ErrorNotification, ErrorRenderer}
 import library.exception.validation.ValidationException
-import library.request.RequestId
+import library.trace.RequestId
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
 import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY}

@@ -1,6 +1,6 @@
 package library.filter.internal
 
-import library.request.{CorrelationId, RequestId}
+import library.trace.{CorrelationId, RequestId}
 import net.logstash.logback.marker.Markers
 import org.slf4j.Marker
 import play.api.Logger
