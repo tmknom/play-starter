@@ -25,6 +25,27 @@ object BuildSettings {
     javaOptions += "-Duser.timezone=Asia/Tokyo",
 
     /**
+      * Scala コンパイラに警告を色々出してもらう設定
+      *
+      * -Xfatal-warning であるが、有効にするとなぜか共通ライブラリがエラーになる(警告ないのに。。)のでコメントアウトしている。
+      * 共通ライブラリを別リポジトリに切り出したら、有効にしても良いかもしれない。
+      *
+      * @see http://qiita.com/kawachi/items/1c1d063de91c5445e8bc
+      */
+    scalacOptions ++= Seq(
+      "-deprecation", // @deprecated な API を使用している
+      "-feature", // 実験的な機能や注意すべき機能を使用している
+      "-unchecked", // 型消去などでパターンマッチが有効に機能しない
+      "-Xlint", // Enable or disable specific warnings: `_' for all, `-Xlint:help' to list choices.
+      "-Ywarn-dead-code", // Warn when dead code is identified.
+      "-Ywarn-numeric-widen", // Warn when numerics are widened.
+      "-Ywarn-unused", // Warn when local and private vals, vars, defs, and types are unused.
+      "-Ywarn-unused-import", // Warn when imports are unused.
+      "-Ywarn-value-discard" // Warn when non-Unit expression results are unused.
+      //, "-Xfatal-warning" // 警告があった場合、コンパイルエラーにする
+    ),
+
+    /**
       * logback でログをファイル出力するか：conf/logback.xmlで参照する値
       *
       * 値がセットされていると、ログがファイルに出力される。
