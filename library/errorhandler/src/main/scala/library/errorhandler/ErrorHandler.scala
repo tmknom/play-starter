@@ -2,12 +2,12 @@ package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.errorhandler.internal._
+import library.errorhandler.internal.{ClientErrorHttpResponse, ErrorLogger, ErrorNotification, ServerErrorHttpResponse}
 import library.trace.RequestId
-import play.api._
 import play.api.http.DefaultHttpErrorHandler
 import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
+import play.api.{Configuration, Environment, OptionalSourceMapper, UsefulException}
 
 import scala.concurrent.Future
 
@@ -43,28 +43,28 @@ final class ErrorHandler @Inject()(
     *
     * 例外をスローするんじゃないと WartRemover に怒られるが、意図的なので、警告は抑制している。
     *
-    * @param request    リクエストヘッダー
-    * @param statusCode HTTPステータスコード
-    * @param message    エラーメッセージ
+    * @param requestHeader リクエストヘッダー
+    * @param statusCode    HTTPステータスコード
+    * @param message       エラーメッセージ
     */
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
-  override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] = {
-    val response = ClientErrorHttpResponse(RequestId(request), statusCode, message).response
+  override def onClientError(requestHeader: RequestHeader, statusCode: Int, message: String): Future[Result] = {
+    val response = ClientErrorHttpResponse(RequestId(requestHeader), statusCode, message).response
     Future.successful(response)
   }
 
   /**
     * 本番環境でサーバーエラーが発生したときに実行
     *
-    * @param request   リクエストヘッダー
-    * @param exception スローされた例外
+    * @param requestHeader リクエストヘッダー
+    * @param exception     スローされた例外
     */
-  override protected def onProdServerError(request: RequestHeader, exception: UsefulException): Future[Result] = {
+  override protected def onProdServerError(requestHeader: RequestHeader, exception: UsefulException): Future[Result] = {
     val throwable = exception.cause
 
-    ErrorNotification.notify(request, throwable)
+    ErrorNotification(requestHeader, throwable).notifyTrace()
 
-    val response = ServerErrorHttpResponse(RequestId(request), throwable).response
+    val response = ServerErrorHttpResponse(RequestId(requestHeader), throwable).response
     Future.successful(response)
   }
 
@@ -75,11 +75,11 @@ final class ErrorHandler @Inject()(
     * 開発環境だけ、ハンドリング方法を変更することも可能。
     * たぶんデバッグしやすいようにカスタマイズできる余地を残しているんだと思う。
     *
-    * @param request   リクエストヘッダー
-    * @param exception スローされた例外
+    * @param requestHeader リクエストヘッダー
+    * @param exception     スローされた例外
     */
-  override protected def onDevServerError(request: RequestHeader, exception: UsefulException): Future[Result] = {
-    onProdServerError(request, exception)
+  override protected def onDevServerError(requestHeader: RequestHeader, exception: UsefulException): Future[Result] = {
+    onProdServerError(requestHeader, exception)
   }
 
   /**
@@ -88,10 +88,10 @@ final class ErrorHandler @Inject()(
     * UsefulException しかログ出力してくれないが、それでいいんかいなって気持ちになる。
     * このメソッドをオーバーライドするんじゃなくて、フツーにログ出力処理を呼び出したほうがいいかもしれない。
     *
-    * @param request         リクエストヘッダー
+    * @param requestHeader   リクエストヘッダー
     * @param usefulException スローされた例外
     */
-  override protected def logServerError(request: RequestHeader, usefulException: UsefulException) {
-    ErrorLogger.error(request, usefulException.cause)
+  override protected def logServerError(requestHeader: RequestHeader, usefulException: UsefulException) {
+    ErrorLogger(requestHeader, usefulException.cause).log()
   }
 }

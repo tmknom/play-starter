@@ -18,9 +18,9 @@ private[errorhandler] final case class ServerErrorHttpResponse(
   def response: Result = {
     throwable match {
       case validationException: ValidationException =>
-        UnprocessableEntity(ValidationErrorRenderer(validationException.errors, UNPROCESSABLE_ENTITY, requestId.value).render)
+        UnprocessableEntity(ValidationErrorRenderer(validationException.errors, UNPROCESSABLE_ENTITY, requestId).render)
       case _ =>
-        InternalServerError(ServerErrorRenderer(throwable, INTERNAL_SERVER_ERROR, requestId.value).render)
+        InternalServerError(ServerErrorRenderer(throwable, INTERNAL_SERVER_ERROR, requestId).render)
     }
   }
 

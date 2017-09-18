@@ -5,18 +5,16 @@ import play.api.mvc.RequestHeader
 
 /**
   * エラー用の通知
-  *
-  * Rollbarへの通知処理
   */
-private[errorhandler] object ErrorNotification {
+private[errorhandler] final case class ErrorNotification(
+                                                          private val requestHeader: RequestHeader,
+                                                          private val throwable: Throwable
+                                                        ) {
 
   /**
     * エラーを通知する
-    *
-    * @param requestHeader リクエストヘッダー
-    * @param throwable     スローされた例外
     */
-  def notify(requestHeader: RequestHeader, throwable: Throwable): Unit = {
+  def notifyTrace(): Unit = {
     Logger.trace(s"please implement me! - ${requestHeader.toString} ${throwable.toString}")
   }
 }

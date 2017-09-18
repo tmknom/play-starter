@@ -1,6 +1,7 @@
 package library.errorhandler.internal.renderer
 
 import library.exception.validation.ErrorDetail
+import library.trace.RequestId
 import play.api.libs.json.{JsObject, Json}
 
 /**
@@ -8,11 +9,11 @@ import play.api.libs.json.{JsObject, Json}
   *
   * @todo バリデーションエラー時に、複数のerrorsを返せるように修正する
   */
-private[errorhandler] final case class ValidationErrorRenderer(
-                                                                private val errors: Seq[ErrorDetail],
-                                                                private val statusCode: Int,
-                                                                private val requestId: String
-                                                              ) {
+private[internal] final case class ValidationErrorRenderer(
+                                                            private val errors: Seq[ErrorDetail],
+                                                            private val statusCode: Int,
+                                                            private val requestId: RequestId
+                                                          ) {
 
   def render: JsObject = {
     Json.obj(
@@ -25,7 +26,7 @@ private[errorhandler] final case class ValidationErrorRenderer(
         }
       ),
       "status_code" -> statusCode,
-      "request_id" -> requestId
+      "request_id" -> requestId.value
     )
   }
 

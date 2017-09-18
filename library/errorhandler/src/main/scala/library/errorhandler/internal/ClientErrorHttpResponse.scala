@@ -18,7 +18,7 @@ private[errorhandler] final case class ClientErrorHttpResponse(
   def response: Result = {
     statusCode match {
       case clientErrorStatusCode if statusCode >= BAD_REQUEST && statusCode < INTERNAL_SERVER_ERROR =>
-        Results.Status(statusCode)(ClientErrorRenderer(message, clientErrorStatusCode, requestId.value).render)
+        Results.Status(statusCode)(ClientErrorRenderer(message, clientErrorStatusCode, requestId).render)
       case _ =>
         throw new IllegalArgumentException(s"onClientError invoked with non client error status code $statusCode: $message")
     }
