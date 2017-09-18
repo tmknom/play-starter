@@ -25,7 +25,8 @@ private[filter] object RequestLogger {
 
     // ログ出力
     val message = s"Started ${requestHeader.method} ${requestHeader.path}"
-    Logger.logger.info(createStartDetail(requestHeader, correlationId, requestId), message)
+    val startDetail = StartDetail(requestHeader, correlationId, requestId)
+    Logger.logger.info(Markers.append("detail", startDetail.toMap), message)
   }
 
   /**
@@ -39,29 +40,6 @@ private[filter] object RequestLogger {
   def logEnd(requestHeader: RequestHeader, correlationId: CorrelationId, requestId: RequestId, result: Result, requestTime: RequestTime): Unit = {
     val message = s"Completed ${requestHeader.method} ${requestHeader.path}"
     Logger.logger.info(createEndDetail(correlationId, requestId, result, requestTime), message)
-  }
-
-  /**
-    * HTTPリクエストの開始時の詳細の作成
-    *
-    * @param requestHeader リクエストヘッダー
-    * @param correlationId 相関ID
-    * @param requestId     リクエストID
-    * @return ログメッセージ
-    */
-  private def createStartDetail(requestHeader: RequestHeader, correlationId: CorrelationId, requestId: RequestId): Marker = {
-    val value = Map(
-      "correlation_id" -> correlationId.value,
-      "request_id" -> requestId.value,
-      "request" -> Map(
-        "path" -> requestHeader.path,
-        "method" -> requestHeader.method,
-        "raw_query_string" -> requestHeader.rawQueryString,
-        "host" -> requestHeader.host,
-        "remote_ip_address" -> requestHeader.remoteAddress
-      ).asJava
-    )
-    Markers.append("detail", value.asJava)
   }
 
   /**
