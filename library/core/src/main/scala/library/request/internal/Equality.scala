@@ -1,4 +1,4 @@
-package library.request
+package library.request.internal
 
 private[request] object Equality {
   /**
