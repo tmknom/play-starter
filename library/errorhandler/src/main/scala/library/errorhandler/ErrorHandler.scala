@@ -2,12 +2,12 @@ package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.errorhandler.internal._
+import library.errorhandler.internal.{ClientErrorHttpResponse, ErrorLogger, ErrorNotification, ServerErrorHttpResponse}
 import library.trace.RequestId
-import play.api._
 import play.api.http.DefaultHttpErrorHandler
 import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
+import play.api.{Configuration, Environment, OptionalSourceMapper, UsefulException}
 
 import scala.concurrent.Future
 
