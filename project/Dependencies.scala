@@ -13,8 +13,8 @@ import sbt._
 
 object Version {
   // DB関連
-  val MysqlConnectorJava = "5.1.43"
-  val SkinnyOrm = "2.3.7"
+  val MysqlConnectorJava = "5.1.44"
+  val SkinnyOrm = "2.4.0"
   val ScalikejdbcPlayInitializer = "2.6.0"
   val ScalikejdbcJsr310 = "2.5.2"
 
@@ -29,8 +29,8 @@ object Version {
   val Janino = "3.0.7"
 
   // テスト関連
-  val MockitoCore = "2.8.47"
-  val ScalatestplusPlay = "3.1.1"
+  val MockitoCore = "2.10.0"
+  val ScalatestplusPlay = "3.1.2"
 
   // 共通ライブラリ関連
   val PlayFramework = "2.6.5" // plugins.sbt の定義と合わせること
