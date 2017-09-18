@@ -2,14 +2,11 @@ package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.errorhandler.internal.{ErrorLogger, ErrorNotification, ErrorRenderer}
-import library.exception.validation.ValidationException
+import library.errorhandler.internal._
 import library.trace.RequestId
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
-import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY}
-import play.api.mvc.Results.{InternalServerError, UnprocessableEntity}
-import play.api.mvc.{RequestHeader, Result, Results}
+import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
 
 import scala.concurrent.Future
@@ -52,15 +49,8 @@ final class ErrorHandler @Inject()(
     */
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] = {
-    statusCode match {
-      case clientErrorStatusCode if statusCode >= BAD_REQUEST && statusCode < INTERNAL_SERVER_ERROR => {
-        val requestId = RequestId(request).value
-        val body = ErrorRenderer.renderClientError(message, clientErrorStatusCode, requestId)
-        Future.successful(Results.Status(statusCode)(body))
-      }
-      case _ =>
-        throw new IllegalArgumentException(s"onClientError invoked with non client error status code $statusCode: $message")
-    }
+    val response = ClientErrorHttpResponse(RequestId(request), statusCode, message).response
+    Future.successful(response)
   }
 
   /**
@@ -73,23 +63,9 @@ final class ErrorHandler @Inject()(
     val throwable = exception.cause
 
     ErrorNotification.notify(request, throwable)
-    renderServerError(request, throwable)
-  }
 
-  private def renderServerError(requestHeader: RequestHeader, throwable: Throwable): Future[Result] = {
-    val requestId = RequestId(requestHeader).value
-    throwable match {
-      case validationException: ValidationException => {
-        Future.successful(UnprocessableEntity(
-          ErrorRenderer.renderValidationError(validationException.errors, UNPROCESSABLE_ENTITY, requestId)
-        ))
-      }
-      case _ => {
-        Future.successful(InternalServerError(
-          ErrorRenderer.renderServerError(throwable, INTERNAL_SERVER_ERROR, requestId)
-        ))
-      }
-    }
+    val response = ServerErrorHttpResponse(RequestId(request), throwable).response
+    Future.successful(response)
   }
 
   /**
