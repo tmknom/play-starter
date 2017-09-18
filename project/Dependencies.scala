@@ -33,7 +33,7 @@ object Version {
   val ScalatestplusPlay = "3.1.1"
 
   // 共通ライブラリ関連
-  val PlayFramework = "2.6.2" // plugins.sbt の定義と合わせること
+  val PlayFramework = "2.6.5" // plugins.sbt の定義と合わせること
   val FlywayCore = "4.2.0"
 }
 
