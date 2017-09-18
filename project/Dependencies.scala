@@ -29,7 +29,7 @@ object Version {
   val Janino = "3.0.7"
 
   // テスト関連
-  val MockitoCore = "2.8.47"
+  val MockitoCore = "2.10.0"
   val ScalatestplusPlay = "3.1.2"
 
   // 共通ライブラリ関連
