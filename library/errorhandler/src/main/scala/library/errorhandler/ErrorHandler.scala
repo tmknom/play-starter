@@ -2,13 +2,10 @@ package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.errorhandler.internal.{ClientErrorHttpResponse, ErrorLogger, ErrorNotification, ErrorRenderer}
-import library.exception.validation.ValidationException
+import library.errorhandler.internal._
 import library.trace.RequestId
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
-import play.api.http.Status.{INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY}
-import play.api.mvc.Results.{InternalServerError, UnprocessableEntity}
 import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
 
@@ -66,23 +63,9 @@ final class ErrorHandler @Inject()(
     val throwable = exception.cause
 
     ErrorNotification.notify(request, throwable)
-    renderServerError(request, throwable)
-  }
 
-  private def renderServerError(requestHeader: RequestHeader, throwable: Throwable): Future[Result] = {
-    val requestId = RequestId(requestHeader).value
-    throwable match {
-      case validationException: ValidationException => {
-        Future.successful(UnprocessableEntity(
-          ErrorRenderer.renderValidationError(validationException.errors, UNPROCESSABLE_ENTITY, requestId)
-        ))
-      }
-      case _ => {
-        Future.successful(InternalServerError(
-          ErrorRenderer.renderServerError(throwable, INTERNAL_SERVER_ERROR, requestId)
-        ))
-      }
-    }
+    val response = ServerErrorHttpResponse(RequestId(request), throwable).response
+    Future.successful(response)
   }
 
   /**
