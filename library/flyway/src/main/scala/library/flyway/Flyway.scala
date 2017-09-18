@@ -2,7 +2,7 @@ package library.flyway
 
 import library.flyway.internal.FlywayConfiguration
 import org.flywaydb.core.internal.info.MigrationInfoDumper
-import play.api.Application
+import play.api.inject.Injector
 
 /**
   * DBマイグレーションツールFlyway
@@ -15,8 +15,8 @@ import play.api.Application
   * playのapplication.confに設定項目を書いてて、結局injectが必要で煩雑なので
   * inject含めてこのクラスの中で設定値の読み出しまでやることにした
   */
-class Flyway(app: Application) {
-  private lazy val flyway = FlywayConfiguration(app.injector).configure
+private[library] final case class Flyway(injector: Injector) {
+  private lazy val flyway = FlywayConfiguration(injector).configure
 
   // マイグレーション状態の表示
   def info(): String = {
