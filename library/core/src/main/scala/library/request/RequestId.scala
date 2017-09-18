@@ -15,19 +15,24 @@ private[library] sealed trait RequestId extends TraceId
   */
 private[library] object RequestId {
   /**
+    * 未初期化時のデフォルト値
+    */
+  val UninitializedRequestId: String = "uninitialized-request-id"
+
+  /**
     * リクエストIDをリクエストヘッダーから取得
     *
     * @param requestHeader リクエストヘッダー
     * @return 相関ID
     */
   def apply(requestHeader: RequestHeader): RequestId = {
-    val value = requestHeader.headers.get(RequestHeaderKey.RequestId).getOrElse(RequestHeaderDefaultValue.RequestId)
+    val value = requestHeader.headers.get(RequestHeaderKey.RequestId).getOrElse(UninitializedRequestId)
     RequestIdImpl(value)
   }
 }
 
 private final case class RequestIdImpl(value: String) extends RequestId {
   override def isInitialized: Boolean = {
-    !Equality.typeSafeEquals[String](value, RequestHeaderDefaultValue.RequestId)
+    !Equality.typeSafeEquals[String](value, RequestId.UninitializedRequestId)
   }
 }
