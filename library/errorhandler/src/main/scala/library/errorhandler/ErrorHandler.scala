@@ -2,14 +2,14 @@ package library.errorhandler
 
 import javax.inject.{Inject, Provider, Singleton}
 
-import library.errorhandler.internal.{ErrorLogger, ErrorNotification, ErrorRenderer}
+import library.errorhandler.internal.{ClientErrorHttpResponse, ErrorLogger, ErrorNotification, ErrorRenderer}
 import library.exception.validation.ValidationException
 import library.trace.RequestId
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
-import play.api.http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY}
+import play.api.http.Status.{INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY}
 import play.api.mvc.Results.{InternalServerError, UnprocessableEntity}
-import play.api.mvc.{RequestHeader, Result, Results}
+import play.api.mvc.{RequestHeader, Result}
 import play.api.routing.Router
 
 import scala.concurrent.Future
@@ -52,15 +52,8 @@ final class ErrorHandler @Inject()(
     */
   @SuppressWarnings(Array("org.wartremover.warts.Throw"))
   override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] = {
-    statusCode match {
-      case clientErrorStatusCode if statusCode >= BAD_REQUEST && statusCode < INTERNAL_SERVER_ERROR => {
-        val requestId = RequestId(request).value
-        val body = ErrorRenderer.renderClientError(message, clientErrorStatusCode, requestId)
-        Future.successful(Results.Status(statusCode)(body))
-      }
-      case _ =>
-        throw new IllegalArgumentException(s"onClientError invoked with non client error status code $statusCode: $message")
-    }
+    val response = ClientErrorHttpResponse(RequestId(request), statusCode, message).response
+    Future.successful(response)
   }
 
   /**
