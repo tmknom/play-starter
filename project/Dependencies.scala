@@ -93,9 +93,13 @@ object Library {
   val MockitoCore = "org.mockito" % "mockito-core" % Version.MockitoCore % Test
 
   // xUnit用ライブラリ
+  // 共通ライブラリに定義するテスト用の基底クラス・ヘルパー向けに、main側からでも読めるようにする
+  val ScalatestplusPlayForMain = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay
+
+  // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
   // https://www.playframework.com/documentation/2.6.x/ScalaTestingWithScalaTest
-  val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
+  val ScalatestplusPlay = ScalatestplusPlayForMain % Test
 
   // Play 本体（共通ライブラリ用に定義）
   // Play アプリケーション単体であれば project/plugins.sbt で読み込むので、依存関係の定義は不要
