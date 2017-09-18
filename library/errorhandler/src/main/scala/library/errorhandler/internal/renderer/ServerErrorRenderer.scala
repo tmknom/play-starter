@@ -1,5 +1,6 @@
 package library.errorhandler.internal.renderer
 
+import library.trace.RequestId
 import play.api.libs.json.{JsObject, Json}
 
 /**
@@ -8,7 +9,7 @@ import play.api.libs.json.{JsObject, Json}
 private[internal] final case class ServerErrorRenderer(
                                                         private val throwable: Throwable,
                                                         private val statusCode: Int,
-                                                        private val requestId: String
+                                                        private val requestId: RequestId
                                                       ) {
 
   def render: JsObject = {
@@ -20,7 +21,7 @@ private[internal] final case class ServerErrorRenderer(
         )
       ),
       "status_code" -> statusCode,
-      "request_id" -> requestId
+      "request_id" -> requestId.value
     )
   }
 

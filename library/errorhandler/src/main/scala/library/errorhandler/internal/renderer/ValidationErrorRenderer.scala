@@ -1,6 +1,7 @@
 package library.errorhandler.internal.renderer
 
 import library.exception.validation.ErrorDetail
+import library.trace.RequestId
 import play.api.libs.json.{JsObject, Json}
 
 /**
@@ -11,7 +12,7 @@ import play.api.libs.json.{JsObject, Json}
 private[internal] final case class ValidationErrorRenderer(
                                                             private val errors: Seq[ErrorDetail],
                                                             private val statusCode: Int,
-                                                            private val requestId: String
+                                                            private val requestId: RequestId
                                                           ) {
 
   def render: JsObject = {
@@ -25,7 +26,7 @@ private[internal] final case class ValidationErrorRenderer(
         }
       ),
       "status_code" -> statusCode,
-      "request_id" -> requestId
+      "request_id" -> requestId.value
     )
   }
 

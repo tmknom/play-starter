@@ -1,5 +1,6 @@
 package library.errorhandler.internal.renderer
 
+import library.trace.RequestId
 import play.api.libs.json.{JsObject, Json}
 
 /**
@@ -8,7 +9,7 @@ import play.api.libs.json.{JsObject, Json}
 private[internal] final case class ClientErrorRenderer(
                                                         private val message: String,
                                                         private val statusCode: Int,
-                                                        private val requestId: String
+                                                        private val requestId: RequestId
                                                       ) {
   /**
     * クライアントエラーでは例外がスローされるわけではないので、固定値を返す
@@ -24,7 +25,7 @@ private[internal] final case class ClientErrorRenderer(
         )
       ),
       "status_code" -> statusCode,
-      "request_id" -> requestId
+      "request_id" -> requestId.value
     )
   }
 
