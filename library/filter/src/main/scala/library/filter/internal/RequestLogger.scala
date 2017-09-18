@@ -38,7 +38,7 @@ private[filter] object RequestLogger {
     */
   def logEnd(requestHeader: RequestHeader, correlationId: CorrelationId, requestId: RequestId, result: Result, requestTime: RequestTime): Unit = {
     val message = s"Completed ${requestHeader.method} ${requestHeader.path}"
-    Logger.logger.info(createEndDetail(requestHeader, correlationId, requestId, result, requestTime), message)
+    Logger.logger.info(createEndDetail(correlationId, requestId, result, requestTime), message)
   }
 
   /**
@@ -67,15 +67,13 @@ private[filter] object RequestLogger {
   /**
     * HTTPリクエストの終了時の詳細の作成
     *
-    * @param requestHeader リクエストヘッダー
     * @param correlationId 相関ID
     * @param requestId     リクエストID
     * @param result        HTTPレスポンス
     * @param requestTime   リクエスト実行時間
     * @return ログメッセージ
     */
-  private def createEndDetail(requestHeader: RequestHeader, correlationId: CorrelationId, requestId: RequestId,
-                              result: Result, requestTime: RequestTime): Marker = {
+  private def createEndDetail(correlationId: CorrelationId, requestId: RequestId, result: Result, requestTime: RequestTime): Marker = {
     val value = Map(
       "correlation_id" -> correlationId.value,
       "request_id" -> requestId.value,
