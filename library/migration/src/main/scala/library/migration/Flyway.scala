@@ -1,11 +1,8 @@
 package library.migration
 
+import library.migration.internal.FlywayConfiguration
 import org.flywaydb.core.internal.info.MigrationInfoDumper
-import org.flywaydb.core.{Flyway => coreFlyway}
-import play.api._
-import play.api.db.DBApi
-
-import scala.collection.JavaConverters._
+import play.api.Application
 
 /**
   * DBマイグレーションツールFlyway
@@ -19,34 +16,7 @@ import scala.collection.JavaConverters._
   * inject含めてこのクラスの中で設定値の読み出しまでやることにした
   */
 class Flyway(app: Application) {
-
-  // Prepare and clean database
-  // http://stackoverflow.com/questions/33392905/how-to-apply-manually-evolutions-in-tests-with-slick-and-play-2-4
-  private lazy val injector = app.injector
-
-  private lazy val databaseApi = injector.instanceOf[DBApi] //here is the important line
-
-  // conf/test.confを経由してapplication.confからFlyway関連の設定値を読み込む
-  private lazy val conf = injector.instanceOf[Configuration]
-
-  // Flywayのマイグレーションをライブラリ呼び出しで使う
-  // https://flywaydb.org/documentation/api/javadoc.html
-  private lazy val flyway = new coreFlyway()
-
-  private lazy val dataSource = databaseApi.database("default").dataSource
-
-  // 設定の初期化
-  flyway.setDataSource(dataSource)
-  flyway.setLocations(locations: _*)
-  flyway.setOutOfOrder(outOfOrder)
-
-  private def locations(): Seq[String] = {
-    conf.underlying.getStringList("flyway.locations").asScala
-  }
-
-  private def outOfOrder(): Boolean = {
-    conf.get[Boolean]("flyway.outOfOrder")
-  }
+  private lazy val flyway = FlywayConfiguration(app.injector).configure
 
   // マイグレーション状態の表示
   def info(): String = {
