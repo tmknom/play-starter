@@ -13,7 +13,7 @@ import sbt._
 
 object Version {
   // DB関連
-  val MysqlConnectorJava = "5.1.43"
+  val MysqlConnectorJava = "5.1.44"
   val SkinnyOrm = "2.3.7"
   val ScalikejdbcPlayInitializer = "2.6.0"
   val ScalikejdbcJsr310 = "2.5.2"
