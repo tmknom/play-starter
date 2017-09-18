@@ -1,6 +1,6 @@
 package library.errorhandler.internal
 
-import library.errorhandler.internal.renderer.ClientErrorRenderer
+import library.errorhandler.internal.renderer.{ClientErrorRenderer, ServerErrorRenderer}
 import library.exception.validation.ErrorDetail
 import play.api.libs.json.{JsObject, Json}
 
@@ -29,16 +29,7 @@ private[errorhandler] object ErrorRenderer {
     * @return エラーJSON
     */
   def renderServerError(throwable: Throwable, statusCode: Int, requestId: String): JsObject = {
-    Json.obj(
-      "errors" -> Json.arr(
-        Json.obj(
-          "message" -> throwable.getMessage,
-          "code" -> throwable.getClass.getSimpleName
-        )
-      ),
-      "status_code" -> statusCode,
-      "request_id" -> requestId
-    )
+    ServerErrorRenderer(throwable, statusCode, requestId).render
   }
 
   /**
