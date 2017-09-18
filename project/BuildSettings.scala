@@ -75,6 +75,17 @@ object BuildSettings {
     javaOptions in Test += "-Dconfig.file=conf/test.conf",
 
     /**
+      * テスト時に JVM を fork する
+      *
+      * play のデフォルトでは true だが、サブプロジェクトはなぜか false になってしまう。
+      * そのため、「javaOptions will be ignored, fork is set to false」という警告が出てしまっていた。
+      *
+      * root プロジェクトはデフォルトで true の設定なので問題ないとは思うが、
+      * 共通ライブラリを別リポジトリに切り出した後であれば、この設定は削除してしまって構わない。
+      */
+    fork in Test := true,
+
+    /**
       * ScalaTest のオプション設定
       *
       * -oD : テストケースごとに実行時間の表示
