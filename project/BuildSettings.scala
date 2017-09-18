@@ -75,6 +75,11 @@ object BuildSettings {
     javaOptions in Test += "-Dconfig.file=conf/test.conf",
 
     /**
+      * テスト時の logback 設定ファイルの切り替え
+      */
+    javaOptions in Test += "-Dlogger.resource=logback-test.xml",
+
+    /**
       * テスト時に JVM を fork する
       *
       * play のデフォルトでは true だが、サブプロジェクトはなぜか false になってしまう。
