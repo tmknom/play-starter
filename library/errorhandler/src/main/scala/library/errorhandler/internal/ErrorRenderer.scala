@@ -1,17 +1,13 @@
 package library.errorhandler.internal
 
+import library.errorhandler.internal.renderer.{ClientErrorRenderer, ServerErrorRenderer, ValidationErrorRenderer}
 import library.exception.validation.ErrorDetail
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.JsObject
 
 /**
   * エラーレスポンス用のJSONを生成するクラス
   */
 private[errorhandler] object ErrorRenderer {
-  /**
-    * クライアントエラーでは例外がスローされるわけではないので、固定値を返す
-    */
-  private val ClientErrorCode = "ClientError"
-
   /**
     * クライアントエラーレスポンス用のJSONを生成
     *
@@ -21,16 +17,7 @@ private[errorhandler] object ErrorRenderer {
     * @return エラーJSON
     */
   def renderClientError(message: String, statusCode: Int, requestId: String): JsObject = {
-    Json.obj(
-      "errors" -> Json.arr(
-        Json.obj(
-          "code" -> ClientErrorCode,
-          "message" -> message
-        )
-      ),
-      "status_code" -> statusCode,
-      "request_id" -> requestId
-    )
+    ClientErrorRenderer(message, statusCode, requestId).render
   }
 
   /**
@@ -42,16 +29,7 @@ private[errorhandler] object ErrorRenderer {
     * @return エラーJSON
     */
   def renderServerError(throwable: Throwable, statusCode: Int, requestId: String): JsObject = {
-    Json.obj(
-      "errors" -> Json.arr(
-        Json.obj(
-          "message" -> throwable.getMessage,
-          "code" -> throwable.getClass.getSimpleName
-        )
-      ),
-      "status_code" -> statusCode,
-      "request_id" -> requestId
-    )
+    ServerErrorRenderer(throwable, statusCode, requestId).render
   }
 
   /**
@@ -63,17 +41,6 @@ private[errorhandler] object ErrorRenderer {
     * @return エラーJSON
     */
   def renderValidationError(errors: Seq[ErrorDetail], statusCode: Int, requestId: String): JsObject = {
-    Json.obj(
-      "errors" -> Json.arr(
-        errors.map { error =>
-          Json.obj(
-            "message" -> error.message,
-            "code" -> error.code
-          )
-        }
-      ),
-      "status_code" -> statusCode,
-      "request_id" -> requestId
-    )
+    ValidationErrorRenderer(errors, statusCode, requestId).render
   }
 }
