@@ -1,5 +1,6 @@
 package library.request
 
+import library.request.internal.Equality
 import play.api.mvc.RequestHeader
 
 /**
