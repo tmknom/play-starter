@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
   .settings(libraryDependencies ++= Dependencies.Application)
   .enablePlugins(PlayScala)
   .enablePlugins(CopyPasteDetector)
-  .aggregate(library).dependsOn(library)
+  .dependsOn(library)
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
