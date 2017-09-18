@@ -1,8 +1,8 @@
 package library.errorhandler.internal
 
-import library.errorhandler.internal.renderer.{ClientErrorRenderer, ServerErrorRenderer}
+import library.errorhandler.internal.renderer.{ClientErrorRenderer, ServerErrorRenderer, ValidationErrorRenderer}
 import library.exception.validation.ErrorDetail
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.JsObject
 
 /**
   * エラーレスポンス用のJSONを生成するクラス
@@ -41,17 +41,6 @@ private[errorhandler] object ErrorRenderer {
     * @return エラーJSON
     */
   def renderValidationError(errors: Seq[ErrorDetail], statusCode: Int, requestId: String): JsObject = {
-    Json.obj(
-      "errors" -> Json.arr(
-        errors.map { error =>
-          Json.obj(
-            "message" -> error.message,
-            "code" -> error.code
-          )
-        }
-      ),
-      "status_code" -> statusCode,
-      "request_id" -> requestId
-    )
+    ValidationErrorRenderer(errors, statusCode, requestId).render
   }
 }
