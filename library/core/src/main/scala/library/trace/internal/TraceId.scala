@@ -1,9 +1,9 @@
-package library.request.internal
+package library.trace.internal
 
 /**
   * ログトレース用のID
   */
-private[request] trait TraceId {
+private[trace] trait TraceId {
   def value: String
 
   /**

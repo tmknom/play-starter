@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 
 import akka.stream.Materializer
 import library.filter.internal.{RequestLogger, RequestTime}
-import library.request.{CorrelationId, RequestId}
+import library.trace.{CorrelationId, RequestId}
 import play.api.mvc.{Filter, RequestHeader, Result}
 
 import scala.concurrent.{ExecutionContext, Future}

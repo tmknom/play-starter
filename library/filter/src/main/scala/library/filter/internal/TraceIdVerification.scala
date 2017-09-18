@@ -1,6 +1,6 @@
 package library.filter.internal
 
-import library.request.{CorrelationId, RequestHeaderKey, RequestId}
+import library.trace.{CorrelationId, RequestHeaderKey, RequestId}
 import play.api.Logger
 import play.api.mvc.RequestHeader
 
