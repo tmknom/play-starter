@@ -9,7 +9,7 @@ trait DatabaseSpec extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfter
   private lazy val flyway = Flyway(app.injector)
 
   override def beforeEach(): Unit = {
-    flyway.migrate()
+    val _ = flyway.migrate()
   }
 
   override def afterEach(): Unit = {
