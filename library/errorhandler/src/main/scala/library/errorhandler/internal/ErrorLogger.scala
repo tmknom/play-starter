@@ -11,39 +11,33 @@ import scala.collection.JavaConverters._
 /**
   * エラー用のロガー
   */
-private[errorhandler] object ErrorLogger {
+private[errorhandler] final case class ErrorLogger(
+                                                    private val requestHeader: RequestHeader,
+                                                    private val throwable: Throwable
+                                                  ) {
 
   /**
     * エラーログの出力
-    *
-    * @param requestHeader リクエストヘッダー
-    * @param throwable     スローされた例外
     */
-  def error(requestHeader: RequestHeader, throwable: Throwable): Unit = {
-    val message = createMessage(requestHeader, throwable)
-    val detail = createDetail(requestHeader, throwable)
+  def log(): Unit = {
+    val message = createMessage
+    val detail = createDetail
     Logger.logger.error(detail, message, throwable)
   }
 
   /**
     * エラーメッセージの作成
-    *
-    * @param requestHeader リクエストヘッダー
-    * @param throwable     スローされた例外
-    * @return エラーメッセージ
     */
-  private def createMessage(requestHeader: RequestHeader, throwable: Throwable): String = {
+  private def createMessage: String = {
     s"Failed ${requestHeader.method} ${requestHeader.path} caused by ${throwable.getClass.getSimpleName}(${throwable.getMessage})"
   }
 
   /**
     * エラー詳細の作成
     *
-    * @param requestHeader リクエストヘッダー
-    * @param throwable     スローされた例外
     * @return エラー詳細
     */
-  private def createDetail(requestHeader: RequestHeader, throwable: Throwable): Marker = {
+  private def createDetail: Marker = {
     val detail = Map(
       "correlation_id" -> CorrelationId(requestHeader).value,
       "request_id" -> RequestId(requestHeader).value,

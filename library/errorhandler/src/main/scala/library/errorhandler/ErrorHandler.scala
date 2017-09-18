@@ -92,6 +92,6 @@ final class ErrorHandler @Inject()(
     * @param usefulException スローされた例外
     */
   override protected def logServerError(requestHeader: RequestHeader, usefulException: UsefulException) {
-    ErrorLogger.error(requestHeader, usefulException.cause)
+    ErrorLogger(requestHeader, usefulException.cause).log()
   }
 }
