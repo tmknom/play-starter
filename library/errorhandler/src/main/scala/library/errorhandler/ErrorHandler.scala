@@ -62,7 +62,7 @@ final class ErrorHandler @Inject()(
   override protected def onProdServerError(requestHeader: RequestHeader, exception: UsefulException): Future[Result] = {
     val throwable = exception.cause
 
-    ErrorNotification.notify(requestHeader, throwable)
+    ErrorNotification(requestHeader, throwable).notifyTrace()
 
     val response = ServerErrorHttpResponse(RequestId(requestHeader), throwable).response
     Future.successful(response)
