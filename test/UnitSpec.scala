@@ -1,4 +1,4 @@
-import controllers.HealthCheckController
+import library.controller.HealthCheckController
 import org.scalatestplus.play._
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
