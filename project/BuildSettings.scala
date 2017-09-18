@@ -27,6 +27,9 @@ object BuildSettings {
     /**
       * Scala コンパイラに警告を色々出してもらう設定
       *
+      * -Ywarn-unused で imports と patvars を除外している理由は routes が警告を出すためである。
+      * 本当は有効にしたいのだが routes だけ除外するという設定ができなかったため、泣く泣くコメントアウトした。
+      *
       * -Xfatal-warning であるが、有効にするとなぜか共通ライブラリがエラーになる(警告ないのに。。)のでコメントアウトしている。
       * 共通ライブラリを別リポジトリに切り出したら、有効にしても良いかもしれない。
       *
@@ -39,7 +42,7 @@ object BuildSettings {
       "-Xlint", // Enable or disable specific warnings: `_' for all, `-Xlint:help' to list choices.
       "-Ywarn-dead-code", // Warn when dead code is identified.
       "-Ywarn-numeric-widen", // Warn when numerics are widened.
-      "-Ywarn-unused", // Warn when local and private vals, vars, defs, and types are unused.
+      "-Ywarn-unused:-patvars,_", // Warn when local and private vals, vars, defs, and types are unused.
       "-Ywarn-unused-import", // Warn when imports are unused.
       "-Ywarn-value-discard" // Warn when non-Unit expression results are unused.
       //, "-Xfatal-warning" // 警告があった場合、コンパイルエラーにする
