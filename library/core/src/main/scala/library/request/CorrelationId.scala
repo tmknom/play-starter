@@ -1,6 +1,6 @@
 package library.request
 
-import library.request.internal.Equality
+import library.request.internal.{Equality, TraceId}
 import play.api.mvc.RequestHeader
 
 /**
