@@ -1,4 +1,4 @@
-package library.migration.internal
+package library.flyway.internal
 
 import javax.sql.DataSource
 
@@ -9,7 +9,7 @@ import play.api.inject.Injector
 
 import scala.collection.JavaConverters._
 
-private[migration] final case class FlywayConfiguration(injector: Injector) {
+private[flyway] final case class FlywayConfiguration(injector: Injector) {
   // Flywayのマイグレーションをライブラリ呼び出しで使う
   // https://flywaydb.org/documentation/api/javadoc.html
   def configure: Flyway = {

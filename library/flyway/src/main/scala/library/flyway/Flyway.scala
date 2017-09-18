@@ -1,6 +1,6 @@
-package library.migration
+package library.flyway
 
-import library.migration.internal.FlywayConfiguration
+import library.flyway.internal.FlywayConfiguration
 import org.flywaydb.core.internal.info.MigrationInfoDumper
 import play.api.Application
 
