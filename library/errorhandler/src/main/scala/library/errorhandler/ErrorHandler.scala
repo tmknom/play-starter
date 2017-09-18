@@ -27,7 +27,7 @@ import scala.concurrent.Future
   * 多くの場合 conf/application.conf ファイルに記述することになる。
   * 設定箇所は play.http の errorHandler の項目である。
   *
-  * @see https://www.playframework.com/documentation/2.5.x/ScalaErrorHandling#Extending-the-default-error-handler
+  * @see https://www.playframework.com/documentation/2.6.x/ScalaErrorHandling#Extending-the-default-error-handler
   * @param env          The environment for the application.
   * @param config       A full configuration set.
   * @param sourceMapper provides source code to be displayed on error pages

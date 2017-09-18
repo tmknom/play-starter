@@ -89,11 +89,12 @@ object Library {
   val Janino = "org.codehaus.janino" % "janino" % Version.Janino
 
   // モック用ライブラリ
-  // https://www.playframework.com/documentation/2.5.x/ScalaTestingWithScalaTest#Mockito
+  // https://www.playframework.com/documentation/2.6.x/ScalaTestingWithScalaTest#Mockito
   val MockitoCore = "org.mockito" % "mockito-core" % Version.MockitoCore % Test
 
   // xUnit用ライブラリ
   // playの標準テストライブラリなので、そのまま採用する
+  // https://www.playframework.com/documentation/2.6.x/ScalaTestingWithScalaTest
   val ScalatestplusPlay = "org.scalatestplus.play" %% "scalatestplus-play" % Version.ScalatestplusPlay % Test
 
   // Play 本体（共通ライブラリ用に定義）
