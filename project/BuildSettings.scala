@@ -14,6 +14,13 @@ object BuildSettings {
     scalaVersion := "2.12.3",
 
     /**
+      * resolvers の設定
+      *
+      * 共通ライブラリを取得するため、プライベートな Artifact Repository を追加
+      */
+    resolvers += "Private Artifact Repository" at repositoryPath,
+
+    /**
       * システムのタイムゾーンを指定
       *
       * scalikejdbc などの一部のライブラリでは、システムのタイムゾーンがそのまま使われるため
@@ -103,4 +110,11 @@ object BuildSettings {
       */
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD", "-eI")
   )
+
+  private def repositoryPath = {
+    sys.env.get("ARTIFACT_REPOSITORY") match {
+      case Some(value) => value
+      case None => "環境変数に ARTIFACT_REPOSITORY がセットされていません"
+    }
+  }
 }
