@@ -97,3 +97,17 @@ sbt stats
 ```
 mysql.server start
 ```
+
+## 共通ライブラリ
+
+### アーティファクトリポジトリを環境変数に設定
+
+```
+export ARTIFACT_REPOSITORY=s3://xxxx.amazonaws.com/library/snapshots
+```
+
+### ビルドしてアーティファクトをアーティファクトリポジトリに保存
+
+```
+sbt "project library" publish
+```
