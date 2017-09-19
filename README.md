@@ -40,9 +40,11 @@ mysql -u root -e 'CREATE DATABASE db_test CHARACTER SET utf8mb4 COLLATE utf8mb4_
 
 * GitHubとのヒモ付を有効化
 * CircleCIに環境変数追加
- * CACHE_KEY
- * CODACY_PROJECT_TOKEN
- * ARTIFACT_REPOSITORY
+ * CACHE_KEY : CircleCIのキャッシュ制御用のキー
+ * CODACY_PROJECT_TOKEN : カバレッジ連携用のCodacyのトークン
+ * ARTIFACT_REPOSITORY : アーティファクトリポジトリのS3
+ * AWS_ACCESS_KEY_ID : AWSのアクセスキー／アーティファクトリポジトリのS3アクセス用
+ * AWS_SECRET_KEY : AWSのシークレットキ／アーティファクトリポジトリのS3アクセス用
 
 ### 本番の環境変数設定
 
