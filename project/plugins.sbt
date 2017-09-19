@@ -63,3 +63,10 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.1")
   * プロジェクトの統計情報取得
   */
 addSbtPlugin("com.orrsella" % "sbt-stats" % "1.0.5")
+
+/**
+  * S3 をプライベートな Maven リポジトリとして扱う
+  *
+  * @see https://github.com/frugalmechanic/fm-sbt-s3-resolver
+  */
+addSbtPlugin("com.frugalmechanic" % "fm-sbt-s3-resolver" % "0.12.0")
