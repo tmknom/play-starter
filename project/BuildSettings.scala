@@ -114,7 +114,7 @@ object BuildSettings {
   private def repositoryPath = {
     sys.env.get("ARTIFACT_REPOSITORY") match {
       case Some(value) => value
-      case None => "環境変数に ARTIFACT_REPOSITORY がセットされていません"
+      case None => "s3://example.com" // S3 のパス形式にしておかないと IntelliJ が最初立ち上がらない
     }
   }
 }
