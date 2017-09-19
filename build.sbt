@@ -81,7 +81,7 @@ lazy val filter = (project in file("library/filter"))
 
 lazy val errorhandler = (project in file("library/errorhandler"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val test = (project in file("library/test"))
