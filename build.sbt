@@ -76,7 +76,7 @@ lazy val migration = (project in file("library/migration"))
 
 lazy val filter = (project in file("library/filter"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val errorhandler = (project in file("library/errorhandler"))
