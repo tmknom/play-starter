@@ -20,7 +20,7 @@ object ArtifactRepository {
   private def repositoryPath = {
     sys.env.get("ARTIFACT_REPOSITORY") match {
       case Some(value) => value
-      case None => throw new RuntimeException("環境変数にARTIFACT_REPOSITORYがセットされていません")
+      case None => "環境変数に ARTIFACT_REPOSITORY がセットされていません"
     }
   }
 }

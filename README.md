@@ -42,6 +42,7 @@ mysql -u root -e 'CREATE DATABASE db_test CHARACTER SET utf8mb4 COLLATE utf8mb4_
 * CircleCIに環境変数追加
  * CACHE_KEY
  * CODACY_PROJECT_TOKEN
+ * ARTIFACT_REPOSITORY
 
 ### 本番の環境変数設定
 
