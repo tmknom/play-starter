@@ -114,3 +114,15 @@ export ARTIFACT_REPOSITORY=s3://xxxx.amazonaws.com/library/snapshots
 ```
 sbt "project library" publish
 ```
+
+### IntelliJ向けの設定
+
+IntelliJのsbtの設定で `Use sbt shell for build and import` にチェックを入れる。
+
+IntelliJが環境変数を認識できる `~/.bashrc` に下記を追加。
+
+```
+export ARTIFACT_REPOSITORY=xxxx
+export AWS_ACCESS_KEY_ID=xxxx
+export AWS_SECRET_KEY=xxxx
+```
