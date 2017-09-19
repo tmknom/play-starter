@@ -62,7 +62,7 @@ lazy val controller = (project in file("library/controller"))
 
 lazy val validation = (project in file("library/validation"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val flyway = (project in file("library/flyway"))
