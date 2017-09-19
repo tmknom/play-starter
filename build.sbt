@@ -62,7 +62,7 @@ lazy val controller = (project in file("library/controller"))
 
 lazy val validation = (project in file("library/validation"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val flyway = (project in file("library/flyway"))
@@ -76,12 +76,12 @@ lazy val migration = (project in file("library/migration"))
 
 lazy val filter = (project in file("library/filter"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val errorhandler = (project in file("library/errorhandler"))
   .settings(LibrarySettings.Settings)
-  .aggregate(core).dependsOn(core)
+  .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val test = (project in file("library/test"))
