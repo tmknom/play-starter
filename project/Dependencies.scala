@@ -141,5 +141,5 @@ object Dependencies {
   )
 
   // アプリケーションの依存関係
-  val Application = Base ++ Test
+  val Application = Base ++ Test ++ PrivateLibrary.Dependencies
 }
