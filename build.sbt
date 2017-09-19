@@ -38,6 +38,7 @@ lazy val library = (project in file("library"))
   .aggregate(filter).dependsOn(filter)
   .aggregate(errorhandler).dependsOn(errorhandler)
   .aggregate(test).dependsOn(test)
+  .settings(publish := {}) // library プロジェクトそのものは publish しないので無効化しておく
 
 lazy val core = (project in file("library/core"))
   .settings(BuildSettings.Settings)
