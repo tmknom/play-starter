@@ -63,8 +63,8 @@ jobs:
           name: Compile and scalafmt test
           command: cat /dev/null | sbt test:compile scalafmt::test
 
+      # MySQLの起動チェック
       - run:
-          # MySQLの起動チェック
           # テスト時にMySQLコンテナの起動が間に合わないことがあるため、接続できるようになるまで待つ
           # http://engineer.crowdworks.jp/entry/2017/04/04/202719
           name: Checking mysql connection
@@ -73,6 +73,8 @@ jobs:
             do
               mysql -u root -h 127.0.0.1 -e 'show databases' || (sleep $HEALTH_CHECK_RETRY_WAIT; false) && break
             done
+
+      # テスト用のデータベース作成
       - run:
           name: Create test database
           command: mysql -u root -h 127.0.0.1 -e 'create database db_test character set utf8mb4;'
