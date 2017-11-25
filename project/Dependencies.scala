@@ -19,7 +19,7 @@ object Version {
   val ScalikejdbcJsr310 = "2.5.2"
 
   // JSON関連
-  val SprayJson = "1.3.3"
+  val SprayJson = "1.3.4"
 
   // 通信関連
   val DispatchCore = "0.13.1"
