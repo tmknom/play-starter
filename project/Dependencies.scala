@@ -17,7 +17,6 @@ object Version {
   val SkinnyOrm = "2.4.0"
   val Scalikejdbc = "3.1.0"
   val ScalikejdbcPlayInitializer = "2.6.0"
-  val ScalikejdbcJsr310 = "2.5.2"
 
   // JSON関連
   val SprayJson = "1.3.4"
@@ -65,11 +64,6 @@ object Library {
   // アプリケーション起動時に、コネクションプールの初期化するには application.conf に下記記述が必要
   // play.modules.enabled += "scalikejdbc.PlayModule"
   val ScalikejdbcPlayInitializer = "org.scalikejdbc" %% "scalikejdbc-play-initializer" % Version.ScalikejdbcPlayInitializer
-
-  // scalikejdbc で ZonedDateTime を使うためのライブラリ
-  // 3系がリリースされるといらない子になるが、まだ2系なので入れておく
-  // https://github.com/scalikejdbc/scalikejdbc-cookbook/blob/master/ja/06_samples.md#joda-time-ではなく-java-se-8-の-date-time-api-を使う
-  val ScalikejdbcJsr310 = "org.scalikejdbc" %% "scalikejdbc-jsr310" % Version.ScalikejdbcJsr310
 
   // Scala オブジェクトと JSON の相互変換ライブラリ
   // http://arata.hatenadiary.com/entry/2015/02/11/015916
@@ -133,7 +127,6 @@ object Dependencies {
     Scalikejdbc,
     ScalikejdbcConfig,
     ScalikejdbcPlayInitializer,
-    ScalikejdbcJsr310,
     SprayJson,
     DispatchCore,
     LogstashLogbackEncoder,
