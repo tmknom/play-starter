@@ -77,3 +77,10 @@ addSbtPlugin("com.orrsella" % "sbt-stats" % "1.0.5")
   * @see https://github.com/frugalmechanic/fm-sbt-s3-resolver
   */
 addSbtPlugin("com.frugalmechanic" % "fm-sbt-s3-resolver" % "0.12.0")
+
+/**
+  * sbt 実行時のエラーメッセージや警告メッセージを見やすく整形
+  *
+  * @see https://github.com/Duhemm/sbt-errors-summary
+  */
+addSbtPlugin("org.duhemm" % "sbt-errors-summary" % "0.6.0")
