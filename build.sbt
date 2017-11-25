@@ -22,6 +22,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 /**
   * 共通ライブラリのビルド定義
   */
+
 import Library._
 
 lazy val library = (project in file("library"))
@@ -51,78 +52,78 @@ lazy val library = (project in file("library"))
   .settings(publish := {}) // library プロジェクトそのものは publish しないので無効化しておく
 
 lazy val core = (project in file("library/core"))
-  .settings(name := "core")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-core")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val datetime = (project in file("library/datetime"))
-  .settings(name := "datetime")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-datetime")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(libraryDependencies ++= Seq(ScalatestplusPlay))
 
 lazy val task = (project in file("library/task"))
-  .settings(name := "task")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-task")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val spray = (project in file("library/spray"))
-  .settings(name := "spray")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-spray")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(libraryDependencies ++= Seq(SprayJson, ScalatestplusPlay))
 
 lazy val controller = (project in file("library/controller"))
-  .settings(name := "controller")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-controller")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(libraryDependencies ++= Seq(PlayFramework, SprayJson, ScalatestplusPlay))
 
 lazy val validation = (project in file("library/validation"))
-  .settings(name := "validation")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-validation")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, ScalatestplusPlay))
 
 lazy val flyway = (project in file("library/flyway"))
-  .settings(name := "flyway")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-flyway")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .settings(
     libraryDependencies ++= Seq(PlayFramework,
-                                PlayJdbcApi,
-                                FlywayCore,
-                                ScalatestplusPlay,
-                                jdbc % Test,
-                                MysqlConnectorJava % Test))
+      PlayJdbcApi,
+      FlywayCore,
+      ScalatestplusPlay,
+      jdbc % Test,
+      MysqlConnectorJava % Test))
 
 lazy val migration = (project in file("library/migration"))
-  .settings(name := "migration")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-migration")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .dependsOn(task, flyway)
   .settings(libraryDependencies ++= Seq(ScalatestplusPlay))
 
 lazy val filter = (project in file("library/filter"))
-  .settings(name := "filter")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-filter")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val errorhandler = (project in file("library/errorhandler"))
-  .settings(name := "errorhandler")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-errorhandler")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .dependsOn(core)
   .settings(libraryDependencies ++= Seq(PlayFramework, LogstashLogbackEncoder, ScalatestplusPlay))
 
 lazy val test = (project in file("library/test"))
-  .settings(name := "test")
-  .settings(version := "1.0.0-SNAPSHOT")
+  .settings(name := "library-test")
+  .settings(version := "0.1.0")
   .settings(LibrarySettings.Settings)
   .dependsOn(flyway)
   .settings(libraryDependencies ++= Seq(ScalatestplusPlayForMain))
