@@ -14,6 +14,13 @@ addSbtPlugin("org.flywaydb" % "flyway-sbt" % "4.2.0")
 resolvers += "Flyway" at "https://flywaydb.org/repo"
 
 /**
+  * 自動コードフォーマット
+  *
+  * @see https://github.com/lucidsoftware/neo-sbt-scalafmt
+  */
+addSbtPlugin("com.lucidchart" % "sbt-scalafmt" % "1.14")
+
+/**
   * カバレッジ
   *
   * @see https://github.com/scoverage/sbt-scoverage
