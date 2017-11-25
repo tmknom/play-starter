@@ -22,22 +22,32 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 /**
   * 共通ライブラリのビルド定義
   */
-
 import Library._
 
 lazy val library = (project in file("library"))
   .settings(BuildSettings.Settings)
-  .aggregate(core).dependsOn(core)
-  .aggregate(datetime).dependsOn(datetime)
-  .aggregate(spray).dependsOn(spray)
-  .aggregate(controller).dependsOn(controller)
-  .aggregate(validation).dependsOn(validation)
-  .aggregate(task).dependsOn(task)
-  .aggregate(flyway).dependsOn(flyway)
-  .aggregate(migration).dependsOn(migration)
-  .aggregate(filter).dependsOn(filter)
-  .aggregate(errorhandler).dependsOn(errorhandler)
-  .aggregate(test).dependsOn(test)
+  .aggregate(core)
+  .dependsOn(core)
+  .aggregate(datetime)
+  .dependsOn(datetime)
+  .aggregate(spray)
+  .dependsOn(spray)
+  .aggregate(controller)
+  .dependsOn(controller)
+  .aggregate(validation)
+  .dependsOn(validation)
+  .aggregate(task)
+  .dependsOn(task)
+  .aggregate(flyway)
+  .dependsOn(flyway)
+  .aggregate(migration)
+  .dependsOn(migration)
+  .aggregate(filter)
+  .dependsOn(filter)
+  .aggregate(errorhandler)
+  .dependsOn(errorhandler)
+  .aggregate(test)
+  .dependsOn(test)
   .settings(publish := {}) // library プロジェクトそのものは publish しないので無効化しておく
 
 lazy val core = (project in file("library/core"))
@@ -81,7 +91,13 @@ lazy val flyway = (project in file("library/flyway"))
   .settings(name := "flyway")
   .settings(version := "1.0.0-SNAPSHOT")
   .settings(LibrarySettings.Settings)
-  .settings(libraryDependencies ++= Seq(PlayFramework, PlayJdbcApi, FlywayCore, ScalatestplusPlay, jdbc % Test, MysqlConnectorJava % Test))
+  .settings(
+    libraryDependencies ++= Seq(PlayFramework,
+                                PlayJdbcApi,
+                                FlywayCore,
+                                ScalatestplusPlay,
+                                jdbc % Test,
+                                MysqlConnectorJava % Test))
 
 lazy val migration = (project in file("library/migration"))
   .settings(name := "migration")
