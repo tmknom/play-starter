@@ -14,7 +14,6 @@ import sbt._
 object Version {
   // DB関連
   val MysqlConnectorJava = "5.1.44"
-  val SkinnyOrm = "2.4.0"
   val Scalikejdbc = "3.1.0"
   val ScalikejdbcPlayInitializer = "2.6.0"
 
@@ -44,10 +43,6 @@ object Library {
   // なお、少し情報が古いがトラップもあるようなので、本番稼働前にある程度確認したほうがよさそう
   // http://saiya-moebius.hatenablog.com/entry/2014/08/20/230445
   val MysqlConnectorJava = "mysql" % "mysql-connector-java" % Version.MysqlConnectorJava
-
-  // O/Rマッパー
-  // http://skinny-framework.org/documentation/orm.html
-  val SkinnyOrm = "org.skinny-framework" %% "skinny-orm" % Version.SkinnyOrm
 
   // SQLのクエリを組み立てるためのライブラリ
   // http://scalikejdbc.org/
@@ -123,7 +118,6 @@ object Dependencies {
     guice,
     jdbc,
     MysqlConnectorJava,
-    SkinnyOrm,
     Scalikejdbc,
     ScalikejdbcConfig,
     ScalikejdbcPlayInitializer,
