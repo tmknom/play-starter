@@ -14,9 +14,8 @@ import sbt._
 object Version {
   // DB関連
   val MysqlConnectorJava = "5.1.44"
-  val SkinnyOrm = "2.4.0"
+  val Scalikejdbc = "3.1.0"
   val ScalikejdbcPlayInitializer = "2.6.0"
-  val ScalikejdbcJsr310 = "2.5.2"
 
   // JSON関連
   val SprayJson = "1.3.4"
@@ -45,31 +44,21 @@ object Library {
   // http://saiya-moebius.hatenablog.com/entry/2014/08/20/230445
   val MysqlConnectorJava = "mysql" % "mysql-connector-java" % Version.MysqlConnectorJava
 
-  // O/Rマッパー
-  // http://skinny-framework.org/documentation/orm.html
-  val SkinnyOrm = "org.skinny-framework" %% "skinny-orm" % Version.SkinnyOrm
-
-  // コネクションプールの作成に必要
-  //
-  // Skinny-ORM は内部的に ScalikeJDBC を使っており、コネクションプールを初期化する必要がある
-  // そのコネクションプールの初期化を担ってくれるようだ
-  //
-  // アプリケーション起動時に、コネクションプールの初期化するには application.conf に下記記述が必要
-  // play.modules.enabled += "scalikejdbc.PlayModule"
+  // SQLのクエリを組み立てるためのライブラリ
+  // http://scalikejdbc.org/
   //
   // 余談だが、ScalikeJDBC 自体は日本人が開発しているようで、日本語ドキュメントが開発者によって公開されている
   // https://github.com/scalikejdbc/scalikejdbc-cookbook/tree/master/ja
-  //
-  // また ScalikeJDBC は近々メジャーバージョンアップが予定されているもよう
-  // サポート対象をJava8以上のみとして、JSR-310（ZonedDateTimeとか）にデフォルトで対応するらしい
-  // よく分からんけど Reactive Streams というのにも標準対応するらしい
-  // https://github.com/scalikejdbc/scalikejdbc/blob/master/notes/3.0.0.markdown
-  val ScalikejdbcPlayInitializer = "org.scalikejdbc" %% "scalikejdbc-play-initializer" % Version.ScalikejdbcPlayInitializer
+  val Scalikejdbc = "org.scalikejdbc" %% "scalikejdbc" % Version.Scalikejdbc
 
-  // scalikejdbc で ZonedDateTime を使うためのライブラリ
-  // 3系がリリースされるといらない子になるが、まだ2系なので入れておく
-  // https://github.com/scalikejdbc/scalikejdbc-cookbook/blob/master/ja/06_samples.md#joda-time-ではなく-java-se-8-の-date-time-api-を使う
-  val ScalikejdbcJsr310 = "org.scalikejdbc" %% "scalikejdbc-jsr310" % Version.ScalikejdbcJsr310
+  // Playのapplication.confでScalikeのconfigを書くためのライブラリ
+  val ScalikejdbcConfig = "org.scalikejdbc" %% "scalikejdbc-config" % Version.Scalikejdbc
+
+  // コネクションプールの作成に必要
+  //
+  // アプリケーション起動時に、コネクションプールの初期化するには application.conf に下記記述が必要
+  // play.modules.enabled += "scalikejdbc.PlayModule"
+  val ScalikejdbcPlayInitializer = "org.scalikejdbc" %% "scalikejdbc-play-initializer" % Version.ScalikejdbcPlayInitializer
 
   // Scala オブジェクトと JSON の相互変換ライブラリ
   // http://arata.hatenadiary.com/entry/2015/02/11/015916
@@ -91,6 +80,10 @@ object Library {
   // モック用ライブラリ
   // https://www.playframework.com/documentation/2.6.x/ScalaTestingWithScalaTest#Mockito
   val MockitoCore = "org.mockito" % "mockito-core" % Version.MockitoCore % Test
+
+  // Scalikejdbcのテストを書くためのライブラリ
+  // https://github.com/scalikejdbc/scalikejdbc-cookbook/blob/master/ja/08_unittest.md
+  val ScalikejdbcTest = "org.scalikejdbc" %% "scalikejdbc-test" % Version.Scalikejdbc
 
   // xUnit用ライブラリ
   // 共通ライブラリに定義するテスト用の基底クラス・ヘルパー向けに、main側からでも読めるようにする
@@ -125,9 +118,9 @@ object Dependencies {
     guice,
     jdbc,
     MysqlConnectorJava,
-    SkinnyOrm,
+    Scalikejdbc,
+    ScalikejdbcConfig,
     ScalikejdbcPlayInitializer,
-    ScalikejdbcJsr310,
     SprayJson,
     DispatchCore,
     LogstashLogbackEncoder,
@@ -137,6 +130,7 @@ object Dependencies {
   // テスト関連
   val Test = Seq(
     MockitoCore,
+    ScalikejdbcTest,
     ScalatestplusPlay
   )
 
