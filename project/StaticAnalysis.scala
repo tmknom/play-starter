@@ -122,8 +122,16 @@ object StaticAnalysis {
         *
         * dependencyUpdatesExclusions は非推奨になったから代わりに
         * dependencyUpdatesFilter を使えって書いてあるけど、なぜか使えない。。
+        *
+        * - twirl-api
+        *   - Scala ベースのテンプレートエンジンで、そもそも不要だが Play では標準で組み込まれてしまう
+        *   - だが Play とライフサイクルが異なるらしく Play を最新にしても、アップデートを促されるケースが多い
+        *   - 使いもしない twirl-api を最新にしておく必要はなく、ノイズにもなるので、チェック対象から除外する
+        * - net.sourceforge.pmd
+        *   - cpd はライブラリが更新されてないので除外
         */
-      dependencyUpdatesExclusions := moduleFilter(organization = "net.sourceforge.pmd") // cpd はライブラリが更新されてないので除外
+      dependencyUpdatesExclusions := moduleFilter(organization = "net.sourceforge.pmd")
+        | moduleFilter(name = "twirl-api")
     )
   }
 
