@@ -22,7 +22,7 @@ object Version {
   val SprayJson = "1.3.4"
 
   // 通信関連
-  val DispatchCore = "0.13.1"
+  val DispatchCore = "0.13.2"
 
   // ロギング関連
   val LogstashLogbackEncoder = "4.11"
