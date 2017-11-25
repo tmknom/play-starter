@@ -10,9 +10,9 @@ class UnitSpec extends PlaySpec {
 
   "HealthCheckController" should {
     "return a valid result with action" in {
-      val expected = "{\"status\":\"ok\"}"
+      val expected   = "{\"status\":\"ok\"}"
       val controller = new HealthCheckController(stubControllerComponents())
-      val result = controller.index(FakeRequest())
+      val result     = controller.index(FakeRequest())
       contentAsString(result) must equal(expected)
     }
   }

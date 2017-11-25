@@ -26,7 +26,7 @@ class FunctionalSpec extends PlaySpec with GuiceOneAppPerSuite {
 
     "render the json" in {
       val expected = "{\"status\":\"ok\"}"
-      val home = route(app, FakeRequest(GET, "/health_check")).get
+      val home     = route(app, FakeRequest(GET, "/health_check")).get
 
       status(home) mustBe Status.OK
       contentType(home) mustBe Some("application/json")
