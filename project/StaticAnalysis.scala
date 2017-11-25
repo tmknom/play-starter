@@ -122,8 +122,20 @@ object StaticAnalysis {
         *
         * dependencyUpdatesExclusions は非推奨になったから代わりに
         * dependencyUpdatesFilter を使えって書いてあるけど、なぜか使えない。。
+        *
+        * - net.sourceforge.pmd
+        *   - cpd はライブラリが更新されてないので除外
+        * - twirl-api
+        *   - Scala ベースのテンプレートエンジンで、そもそも不要だが Play では標準で組み込まれてしまう
+        *   - だが Play とライフサイクルが異なるらしく Play を最新にしても、アップデートを促されるケースが多い
+        *   - 使いもしない twirl-api を最新にしておく必要はなく、ノイズにもなるので、チェック対象から除外する
+        * - mysql-connector-java
+        *   - なぜか 8.X 系にアップデートを促される
+        *   - 少なくとも Play では 5.X 系を使うのが正しそうなので、チェック対象外にしてしまう
         */
-      dependencyUpdatesExclusions := moduleFilter(organization = "net.sourceforge.pmd") // cpd はライブラリが更新されてないので除外
+      dependencyUpdatesExclusions := moduleFilter(organization = "net.sourceforge.pmd")
+        | moduleFilter(name = "twirl-api")
+        | moduleFilter(name = "mysql-connector-java")
     )
   }
 
