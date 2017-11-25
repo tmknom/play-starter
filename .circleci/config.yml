@@ -63,6 +63,9 @@ jobs:
           name: Scalafmt test
           command: cat /dev/null | sbt "scalafmt::test"
 
+      # コンパイルを一旦走らせる
+      - run: cat /dev/null | sbt test:compile
+
       - run:
           # MySQLの起動チェック
           # テスト時にMySQLコンテナの起動が間に合わないことがあるため、接続できるようになるまで待つ
@@ -76,9 +79,6 @@ jobs:
       - run:
           name: Create test database
           command: mysql -u root -h 127.0.0.1 -e 'create database db_test character set utf8mb4;'
-
-      # コンパイルを一旦走らせる
-      - run: cat /dev/null | sbt test:compile
 
       # テスト高速化のためキャッシュ
       - save_cache:
