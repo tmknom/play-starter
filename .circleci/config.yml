@@ -58,6 +58,11 @@ jobs:
             - project-{{ .Environment.CACHE_KEY }}-{{ checksum "project/Dependencies.scala" }}
             - project-{{ .Environment.CACHE_KEY }}-
 
+      # フォーマットをチェック
+      - run:
+          name: Scalafmt test
+          command: cat /dev/null | sbt "scalafmt::test"
+
       - run:
           # MySQLの起動チェック
           # テスト時にMySQLコンテナの起動が間に合わないことがあるため、接続できるようになるまで待つ
