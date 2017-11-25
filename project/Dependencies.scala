@@ -19,17 +19,17 @@ object Version {
   val ScalikejdbcJsr310 = "2.5.2"
 
   // JSON関連
-  val SprayJson = "1.3.3"
+  val SprayJson = "1.3.4"
 
   // 通信関連
-  val DispatchCore = "0.13.1"
+  val DispatchCore = "0.13.2"
 
   // ロギング関連
   val LogstashLogbackEncoder = "4.11"
   val Janino = "3.0.7"
 
   // テスト関連
-  val MockitoCore = "2.10.0"
+  val MockitoCore = "2.12.0"
   val ScalatestplusPlay = "3.1.2"
 
   // 共通ライブラリ関連

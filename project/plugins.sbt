@@ -1,5 +1,5 @@
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.5")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.7")
 
 /**
   * マイグレーションツール
@@ -50,7 +50,7 @@ addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
   *
   * @see http://www.wartremover.org/
   */
-addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.1.1")
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.2.1")
 
 /**
   * コピペチェック
